@@ -2,6 +2,14 @@
 
 Repository for Games Engineering Coursework. 
 
+
+
+| Windows Build | Linux / Mac Build |
+| ------------- | ------------- |
+| [![Build status](https://ci.appveyor.com/api/projects/status/p6c8wh4686qdph3h?svg=true)](https://ci.appveyor.com/project/alexbarker/set09121-teamf) |  |
+
+[![forthebadge](https://forthebadge.com/images/badges/built-with-science.svg)](https://forthebadge.com)
+
 # Description
 
 PICOBOTS - A game for coursework. Will update description later.
