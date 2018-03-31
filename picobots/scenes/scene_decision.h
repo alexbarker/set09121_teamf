@@ -1,5 +1,4 @@
 #pragma once
-
 #include "engine.h"
 
 class DecisionScene : public Scene

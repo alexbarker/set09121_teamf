@@ -7,13 +7,21 @@
 #include <LevelSystem.h>
 #include <random>
 #include <chrono>
+#include <SFML/Audio.hpp>
+#include "../components/cmp_music.h"
+#include "scene_splash.h"
+#include "../game.h"
 
 using namespace std;
 using namespace std::chrono;
 using namespace sf;
 
+MusicPlayer s2;
+
 void DecisionScene::Load()
 {
+	s1.stop();
+	s2.play2(1, true);
 	auto player = makeEntity();
 	player->addTag("player");
 	player->setPosition(Vector2f(Engine::GetWindow().getSize().x / 2, Engine::GetWindow().getSize().y / 2));
@@ -60,6 +68,12 @@ void DecisionScene::Load()
 
 void DecisionScene::UnLoad() { Scene::UnLoad(); }
 
-void DecisionScene::Update(const double& dt) { Scene::Update(dt); }
+void DecisionScene::Update(const double& dt) { 
+	if (sf::Keyboard::isKeyPressed(Keyboard::Space)) {
+		s1.play1(0, true);
+		Engine::ChangeScene(&menu);
+	}
+	Scene::Update(dt); 
+}
 
 void DecisionScene::Render() { Scene::Render(); }
