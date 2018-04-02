@@ -12,5 +12,5 @@ DecisionScene decisionScene;
 
 int main() {
 
-	Engine::Start(1280, 720, "Picobots", &splash);
+	Engine::Start(1280, 720, "Picobots", &splash);	
 }

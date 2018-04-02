@@ -31,13 +31,13 @@ void BasicMovementComponent::update(double dt)
 
 // Initialise the component
 BasicMovementComponent::BasicMovementComponent(Entity* p)
-	:_speed(100.f), Component(p) {}
+	:_speed(200.f), Component(p) {}
 
 // Checks if the proposed move is valid
 bool BasicMovementComponent::validMove(const sf::Vector2f& pos)
 {
-	if (pos.x < 0.0f || pos.x > Engine::GetWindow().getSize().x ||
-		pos.y < 0.0f || pos.x > Engine::GetWindow().getSize().y)
+	if (pos.x < 0.0f || pos.x > Engine::GetWindow().getSize().x -20.0f ||
+		pos.y < 0.0f || pos.y > Engine::GetWindow().getSize().y -20.0f)
 	{
 		return false;
 	}
