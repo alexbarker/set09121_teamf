@@ -36,8 +36,8 @@ BasicMovementComponent::BasicMovementComponent(Entity* p)
 // Checks if the proposed move is valid
 bool BasicMovementComponent::validMove(const sf::Vector2f& pos)
 {
-	if (pos.x < 0.0f || pos.x > Engine::GetWindow().getSize().x -20.0f ||
-		pos.y < 0.0f || pos.y > Engine::GetWindow().getSize().y -20.0f)
+	if (pos.x < 240.0f || pos.x > Engine::GetWindow().getSize().x -275.0f ||
+		pos.y < 30.0f || pos.y > Engine::GetWindow().getSize().y -75.0f)
 	{
 		return false;
 	}

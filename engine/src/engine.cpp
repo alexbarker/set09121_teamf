@@ -75,7 +75,6 @@ void Engine::Render(RenderWindow& window) {
   } else if (_activeScene != nullptr) {
     _activeScene->Render();
   }
-
   Renderer::render();
 }
 
@@ -90,6 +89,9 @@ void Engine::Start(unsigned int width, unsigned int height,
   while (window.isOpen()) {
     Event event;
     while (window.pollEvent(event)) {
+		if (event.type == sf::Event::Resized) {
+			window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));		
+		}
       if (event.type == Event::Closed) {
         window.close();
       }
@@ -102,6 +104,7 @@ void Engine::Start(unsigned int width, unsigned int height,
     Update();
     Render(window);
     window.display();
+
   }
   if (_activeScene != nullptr) {
     _activeScene->UnLoad();
@@ -127,6 +130,7 @@ void Engine::ChangeScene(Scene* s) {
 
   if (old != nullptr) {
     old->UnLoad(); // todo: Unload Async
+	
   }
 
   if (!s->isLoaded()) {
@@ -138,9 +142,12 @@ void Engine::ChangeScene(Scene* s) {
   }
 }
 
-void Scene::Update(const double& dt) { ents.update(dt); }
+void Scene::Update(const double& dt) { 
+	ents.update(dt); 
+}
 
-void Scene::Render() { ents.render(); }
+void Scene::Render() { 
+	ents.render(); }
 
 bool Scene::isLoaded() const {
   {

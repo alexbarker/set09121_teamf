@@ -10,6 +10,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <system_renderer.h>
 #include <system_resources.h>
+#include "LevelSystem.h"
 
 using namespace std;
 using namespace sf;

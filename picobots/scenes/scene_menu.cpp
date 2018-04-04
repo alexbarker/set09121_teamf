@@ -9,9 +9,15 @@
 #include "../components/cmp_sprite.h"
 #include "scene_menu.h"
 #include "maths.h"
+#include "LevelSystem.h"
 
 using namespace std;
 using namespace sf;
+sf::Sprite sprite5;
+sf::Texture tex5;
+Vector2f target5;
+sf::Vector2u TextureSize5;  //Added to store texture size.
+sf::Vector2u WindowSize5;   //Added to store window size.
 
 /*
 void Loading_render1() {
@@ -48,17 +54,27 @@ void Loading_render1() {
 */
 void MenuScene::Load() {
   {	
-	s2.stop();
-	s3.stop();
-	s1.playing();
-    //auto txt = makeEntity();
-    //auto t = txt->addComponent<TextComponent>("Decision");
-	float x2 = Engine::getWindowSize().x;
-	float y2 = Engine::getWindowSize().y;
+		tex5 = *Resources::load<Texture>("splash3.png");
+		float x = Engine::GetWindow().getSize().x;
+		float y = Engine::GetWindow().getSize().y;
+		TextureSize5 = tex5.getSize(); //Get size of texture.
+		WindowSize5 = Engine::GetWindow().getSize();             //Get size of window.
+		float ScaleX = (float)WindowSize5.x / TextureSize5.x;
+		float ScaleY = (float)WindowSize5.y / TextureSize5.y;     //Calculate scale.
+		target5 = { x , y };
+		sprite5.setTexture(tex5);
+		sprite5.setPosition(0, 0);
+		sprite5.setScale(ScaleX, ScaleY);
+		sprite5.setOrigin(0, 0);
+		s2.stop();
+		s3.stop();
+		s1.playing();
+		float x2 = Engine::getWindowSize().x;
+		float y2 = Engine::getWindowSize().y;
+		//cout << "(a" << x2 << "-" << y2 << ")";
+	
 
 	font.loadFromFile("res/fonts/RobotoMono-Regular.ttf");
-
-	//Loading_render1();
 
 	menu[0].setFont(font);
 	menu[0].setColor(sf::Color::Green);
@@ -88,26 +104,16 @@ void MenuScene::Load() {
 	selectedItemIndex = 0;
 
 	//std::this_thread::sleep_for(std::chrono::milliseconds(4000));
-
-	/*
-	auto txtNewGame = makeEntity();
-	auto t = txtNewGame->addComponent<TextComponent>("New Game");
-	t->getText().setOrigin(t->getText().getGlobalBounds().width / 2, t->getText().getGlobalBounds().height / 2);
-	txtNewGame->setPosition(Vector2f(280.f, 500.f));
-	*/
   }
   setLoaded(true);
 }
 
 void MenuScene::Update(const double& dt) {
-  /*if (sf::Keyboard::isKeyPressed(Keyboard::Num1)) {
-	  
-    Engine::ChangeScene(&stateScene);
-  }
-  else if (sf::Keyboard::isKeyPressed(Keyboard::Num2)) {
 
-	  Engine::ChangeScene(&decisionScene);
-  }*/
+	if (sf::Keyboard::isKeyPressed(Keyboard::R)) {
+		UnLoad();
+		Load();
+	}
 
 	if (sf::Keyboard::isKeyPressed(Keyboard::Up)) { 
 		MoveUp(); 
@@ -141,13 +147,15 @@ void MenuScene::Update(const double& dt) {
 }
 
 void MenuScene::Render() {
-
+	Renderer::queue(&sprite5);
 	for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
 	{
 		Renderer::queue(&menu[i]);
 	}
 	Scene::Render();
 }
+
+void MenuScene::UnLoad() { Scene::UnLoad(); }
 
 void MenuScene::MoveUp()
 {
