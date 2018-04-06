@@ -18,10 +18,12 @@ void Renderer::shutdown() {
 void Renderer::update(const double&) {}
 
 void Renderer::render() {
+
   if (rw == nullptr) {
     throw("No render window set! ");
   }
   while (!sprites.empty()) {
+
     rw->draw(*sprites.front());
     sprites.pop();
   }

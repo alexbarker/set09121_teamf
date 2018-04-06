@@ -58,7 +58,6 @@ void Engine::Update() {
       }
       davg = 1.0 / (davg / 255.0);
       _window->setTitle(avg + toStrDecPt(2, davg));
-	  Engine::getWindowSize();
     }
   }
 
@@ -91,10 +90,12 @@ void Engine::Start(unsigned int width, unsigned int height,
   while (window.isOpen()) {
     Event event;
     while (window.pollEvent(event)) {
-		if (event.type == sf::Event::Resized) {
-			window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));	
-			_activeScene->UnLoad();
-			_activeScene->Load();
+		if (event.type == sf::Event::Resized) {			
+			//_activeScene->UnLoad();
+			window.clear();
+			window.setSize(sf::Vector2u(event.size.width, event.size.height));
+			window.display();
+			//_activeScene->Load();
 		}
       if (event.type == Event::Closed) {
         window.close();
@@ -127,13 +128,16 @@ std::shared_ptr<Entity> Scene::makeEntity() {
 void Engine::setVsync(bool b) { _window->setVerticalSyncEnabled(b); }
 
 void Engine::ChangeScene(Scene* s) {
+
+
+
   cout << "Eng: changing scene: " << s << endl;
   auto old = _activeScene;
   _activeScene = s;
 
   if (old != nullptr) {
     old->UnLoad(); // todo: Unload Async
-	
+
   }
 
   if (!s->isLoaded()) {

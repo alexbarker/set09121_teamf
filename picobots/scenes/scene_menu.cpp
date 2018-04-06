@@ -19,39 +19,6 @@ using namespace sf;
 //sf::Vector2u TextureSize5;  //Added to store texture size.
 //sf::Vector2u WindowSize5;   //Added to store window size.
 
-/*
-void Loading_render1() {
-	int startAlpha = 0;
-	int currentAlpha = 255;
-	sf::Time targetTime = sf::seconds(3);
-	sf::Clock timer;
-	float x2 = Engine::getWindowSize().x;
-	float y2 = Engine::getWindowSize().y;
-	static Text t("PICOBOTS", *Resources::get<sf::Font>("RobotoMono-Regular.ttf"));
-	t.setPosition(sf::Vector2f((x2 / 2) - 40, (y2 / 2) + 40));
-	t.setColor(sf::Color::White);
-	while (currentAlpha != 0)
-	{
-		sf::Time currentTime = timer.getElapsedTime();
-		
-
-
-		if (currentTime >= targetTime)
-		{
-			return;
-		}
-		else
-		{
-			
-			currentAlpha--;
-		}
-		sf::Color fadeColor = t.getFillColor();
-		fadeColor.a = currentAlpha;
-		t.setFillColor(fadeColor);
-		Renderer::queue(&t);
-	}
-}
-*/
 void MenuScene::Load() {
   {	/*
 		tex5 = *Resources::load<Texture>("splash3.png");
@@ -72,7 +39,6 @@ void MenuScene::Load() {
 		float x2 = Engine::getWindowSize().x;
 		float y2 = Engine::getWindowSize().y;
 		//cout << "(a" << x2 << "-" << y2 << ")";
-	
 
 	font.loadFromFile("res/fonts/RobotoMono-Regular.ttf");
 
@@ -109,6 +75,16 @@ void MenuScene::Load() {
 }
 
 void MenuScene::Update(const double& dt) {
+		Event event;
+		while (Engine::GetWindow().pollEvent(event)) {
+			if (event.type == sf::Event::Resized) {
+
+				UnLoad();
+				Engine::GetWindow().setSize(sf::Vector2u(event.size.width, event.size.height));
+				Engine::GetWindow().display();		
+				Load();
+			}
+		}
 
 	if (sf::Keyboard::isKeyPressed(Keyboard::R)) {
 		UnLoad();
@@ -139,7 +115,7 @@ void MenuScene::Update(const double& dt) {
 			Engine::ChangeScene(&decisionScene);
 			break;
 		case 4:
-			Engine::ChangeScene(&decisionScene);
+			Engine::GetWindow().close();
 			break;
 		}
 	}
@@ -147,7 +123,7 @@ void MenuScene::Update(const double& dt) {
 }
 
 void MenuScene::Render() {
-	//Renderer::queue(&sprite5);
+
 	for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
 	{
 		Renderer::queue(&menu[i]);
@@ -155,7 +131,11 @@ void MenuScene::Render() {
 	Scene::Render();
 }
 
-void MenuScene::UnLoad() { Scene::UnLoad(); }
+void MenuScene::UnLoad() { 
+	float x2 = Engine::GetWindow().getSize().x;
+	float y2 = Engine::GetWindow().getSize().y;
+	Engine::GetWindow().setView(sf::View(sf::FloatRect(0, 0, x2, y2)));
+	Scene::UnLoad(); }
 
 void MenuScene::MoveUp()
 {
@@ -163,7 +143,6 @@ void MenuScene::MoveUp()
 	{
 		menu[selectedItemIndex].setColor(sf::Color::White);
 		selectedItemIndex--;
-		cout << selectedItemIndex;
 		menu[selectedItemIndex].setColor(sf::Color::Green);
 	}
 }
@@ -174,7 +153,6 @@ void MenuScene::MoveDown()
 	{
 		menu[selectedItemIndex].setColor(sf::Color::White);
 		selectedItemIndex++;
-		cout << selectedItemIndex;
 		menu[selectedItemIndex].setColor(sf::Color::Green);
 	}
 }

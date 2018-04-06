@@ -42,6 +42,11 @@ void DecisionScene::SetBackground() {
 
 void DecisionScene::Load()
 {
+	float x2 = Engine::getWindowSize().x;
+	float y2 = Engine::getWindowSize().y;
+	//cout << "(a" << x2 << "-" << y2 << ")";
+	Engine::GetWindow().setSize(sf::Vector2u(x2, y2));
+	Engine::GetWindow().display();
 	SetBackground();
 
 	s1.stop();
@@ -85,14 +90,26 @@ void DecisionScene::Load()
 				make_shared<SeekDecision>()
 				)
 			);
-
 		enemy->addComponent<DecisionTreeComponent>(decision);
 	}
 }
 
-void DecisionScene::UnLoad() { Scene::UnLoad(); }
+void DecisionScene::UnLoad() { 
+	float x2 = Engine::GetWindow().getSize().x;
+	float y2 = Engine::GetWindow().getSize().y;
+	Engine::GetWindow().setView(sf::View(sf::FloatRect(0, 0, x2, y2)));
+	Scene::UnLoad(); }
 
 void DecisionScene::Update(const double& dt) { 
+	Event event;
+	while (Engine::GetWindow().pollEvent(event)) {
+		if (event.type == sf::Event::Resized) {
+			UnLoad();
+			Engine::GetWindow().setSize(sf::Vector2u(event.size.width, event.size.height));
+			Engine::GetWindow().display();	
+			Load();
+		}
+	}
 	Scene::Update(dt);	
 
 	if (sf::Keyboard::isKeyPressed(Keyboard::R)) {
