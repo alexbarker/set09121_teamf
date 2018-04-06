@@ -58,6 +58,7 @@ void Engine::Update() {
       }
       davg = 1.0 / (davg / 255.0);
       _window->setTitle(avg + toStrDecPt(2, davg));
+	  Engine::getWindowSize();
     }
   }
 
@@ -86,11 +87,14 @@ void Engine::Start(unsigned int width, unsigned int height,
   Renderer::initialise(window);
   Physics::initialise();
   ChangeScene(scn);
+  window.setFramerateLimit(60);
   while (window.isOpen()) {
     Event event;
     while (window.pollEvent(event)) {
 		if (event.type == sf::Event::Resized) {
-			window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));		
+			window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));	
+			_activeScene->UnLoad();
+			_activeScene->Load();
 		}
       if (event.type == Event::Closed) {
         window.close();
@@ -99,7 +103,6 @@ void Engine::Start(unsigned int width, unsigned int height,
     if (Keyboard::isKeyPressed(Keyboard::Escape)) {
       window.close();
     }
-
     window.clear();
     Update();
     Render(window);

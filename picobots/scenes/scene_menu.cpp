@@ -13,11 +13,11 @@
 
 using namespace std;
 using namespace sf;
-sf::Sprite sprite5;
-sf::Texture tex5;
-Vector2f target5;
-sf::Vector2u TextureSize5;  //Added to store texture size.
-sf::Vector2u WindowSize5;   //Added to store window size.
+//sf::Sprite sprite5;
+//sf::Texture tex5;
+//Vector2f target5;
+//sf::Vector2u TextureSize5;  //Added to store texture size.
+//sf::Vector2u WindowSize5;   //Added to store window size.
 
 /*
 void Loading_render1() {
@@ -53,7 +53,7 @@ void Loading_render1() {
 }
 */
 void MenuScene::Load() {
-  {	
+  {	/*
 		tex5 = *Resources::load<Texture>("splash3.png");
 		float x = Engine::GetWindow().getSize().x;
 		float y = Engine::GetWindow().getSize().y;
@@ -65,7 +65,7 @@ void MenuScene::Load() {
 		sprite5.setTexture(tex5);
 		sprite5.setPosition(0, 0);
 		sprite5.setScale(ScaleX, ScaleY);
-		sprite5.setOrigin(0, 0);
+		sprite5.setOrigin(0, 0);*/
 		s2.stop();
 		s3.stop();
 		s1.playing();
@@ -147,7 +147,7 @@ void MenuScene::Update(const double& dt) {
 }
 
 void MenuScene::Render() {
-	Renderer::queue(&sprite5);
+	//Renderer::queue(&sprite5);
 	for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
 	{
 		Renderer::queue(&menu[i]);
