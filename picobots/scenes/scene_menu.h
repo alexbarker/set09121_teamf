@@ -15,10 +15,14 @@ public:
   void UnLoad() override;
   void Update(const double& dt) override;
   void Render() override;
+  void SetTitle();
 
   void MoveUp();
   void MoveDown();
   int GetPressedItem() { return selectedItemIndex; }
+
+public:
+  sf::IntRect uvRect;
 
 private:
 	int selectedItemIndex;
