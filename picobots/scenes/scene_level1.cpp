@@ -92,7 +92,7 @@ void Level1Scene::Load() {
 	auto s = player->addComponent<SpriteComponent>();
 	s->setSprite(playerBotSprite);
 	player->addComponent<BasicMovementComponent>();
-	playerBotSprite.setScale(0.2, 0.2);
+	playerBotSprite.setScale(0.3, 0.3);
 }
 
 void Level1Scene::UnLoad() {
@@ -104,7 +104,7 @@ void Level1Scene::UnLoad() {
 
 void Level1Scene::Update(const double& dt) {
 	Scene::Update(dt);
-	if (clock2.getElapsedTime().asSeconds() > 0.04f) {
+	if (clock2.getElapsedTime().asSeconds() > 0.08f) {
 		if (playerSource.left == 2884) {
 			playerSource.left = 0;
 		}

@@ -104,7 +104,7 @@ void Engine::Start(unsigned int width, unsigned int height,
     if (Keyboard::isKeyPressed(Keyboard::Escape)) {
       window.close();
     }
-	window.clear(sf::Color(120, 120, 120, 255));
+	window.clear(sf::Color(50, 50, 50, 255));
     Update();
     Render(window);
     window.display();
