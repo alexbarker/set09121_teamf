@@ -5,11 +5,27 @@
 #include "scenes/scene_state.h"
 #include "scenes/scene_decision.h"
 #include "components/cmp_music.h"
+#include "scenes/scene_level1.h"
+#include "scenes/scene_boss_level.h"
+#include "scenes/scene_settings.h"
+#include "scenes/scene_game_over.h"
+#include "scenes/scene_end_game.h"
+#include "scenes/scene_high_scores.h"
+#include "scenes/scene_tutorial.h"
+#include "scenes/scene_load.h"
 
 extern SplashScene splash;
 extern MenuScene menu;
-extern StateScene stateScene;
-extern DecisionScene decisionScene;
+extern StateScene stateScene;		//tbd
+extern DecisionScene decisionScene; //tbd
+extern Level1Scene level1;
+extern BossLevelScene bosslevel;
+extern SettingsScene  settings;
+extern GameOverScene  gameover;
+extern EndGameScene  endgame;
+extern HighScoresScene  highscores;
+extern TutorialScene  tutorial;
+extern LoadScene  load;
 
 extern MusicPlayer s1;
 extern MusicPlayer s2;

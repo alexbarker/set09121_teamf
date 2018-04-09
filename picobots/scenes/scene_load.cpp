@@ -2,31 +2,32 @@
 #include "../game.h"
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <system_resources.h>
 #include <LevelSystem.h>
 #include <iostream>
 #include <thread>
 #include "../components/cmp_music.h"
-
 
 using namespace std;
 using namespace sf;
 
 static shared_ptr<Entity> player;
 
-void SettingsScene::Load() {
+void LoadScene::Load() {
 	s2.stop();
 	s3.stop();
 	s1.playing();
 }
 
-void SettingsScene::UnLoad() {
+void LoadScene::UnLoad() {
 	float x2 = Engine::GetWindow().getSize().x;
 	float y2 = Engine::GetWindow().getSize().y;
 	Engine::GetWindow().setView(sf::View(sf::FloatRect(0, 0, x2, y2)));
 	Scene::UnLoad();
 }
 
-void SettingsScene::Update(const double& dt) {
+void LoadScene::Update(const double& dt) {
 	Scene::Update(dt);
 	Event event;
 	while (Engine::GetWindow().pollEvent(event)) {
@@ -47,6 +48,6 @@ void SettingsScene::Update(const double& dt) {
 	}
 }
 
-void SettingsScene::Render() {
+void LoadScene::Render() {
 	Scene::Render();
 }

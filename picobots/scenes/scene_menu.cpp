@@ -11,7 +11,6 @@
 #include "maths.h"
 #include "LevelSystem.h"
 #include <SFML/Graphics.hpp>
-#include "../animation.h"
 
 using namespace std;
 using namespace sf;
@@ -41,62 +40,57 @@ void MenuScene::SetTitle() {
 	target91 = { x , y };
 	sprite91.setTexture(tex91);
 	sprite91.setPosition(WindowSize91.x/2, WindowSize91.y/3);
-	sprite91.setScale(ScaleX/2, ScaleY/2);
+	//sprite91.setScale(ScaleX/2, ScaleY/2);
 	sprite91.setOrigin(TextureSize91.x/2, TextureSize91.y/2);
 }
 
 void MenuScene::Load() {
   {
-
-
 		s2.stop();
 		s3.stop();
 		s1.playing();
 		float x2 = Engine::getWindowSize().x;
 		float y2 = Engine::getWindowSize().y;
-		//a = 0;
 		SetTitle();
-
 
 		roboarm.setPosition(x2-400.0f, 200.0f);
 		roboarmTexture.loadFromFile("res/img/RoboarmSprite.png");
 		roboarm2.setPosition(0, 200.0f);
 		roboarmTexture2.loadFromFile("res/img/RoboarmSprite.png");
-		//roboarm.setTexture(roboarmTexture);
-		
-		//sprite.setTextureRect(sf::IntRect(width, 0, -width, height));
 
+		font.loadFromFile("res/fonts/RobotoMono-Regular.ttf");
 
+		menu[0].setFont(font);
+		menu[0].setFillColor(sf::Color::Green);
+		menu[0].setString("New Game");
+		menu[0].setPosition(sf::Vector2f((x2 / 2) - 80, (y2 / 2) + 40 ));
 
-	font.loadFromFile("res/fonts/RobotoMono-Regular.ttf");
+		menu[1].setFont(font);
+		menu[1].setFillColor(sf::Color::White);
+		menu[1].setString("Load Game");
+		menu[1].setPosition(sf::Vector2f((x2 / 2) - 80, (y2 / 2) + 80));
 
-	menu[0].setFont(font);
-	menu[0].setFillColor(sf::Color::Green);
-	menu[0].setString("Quick Game");
-	menu[0].setPosition(sf::Vector2f((x2 / 2) - 80, (y2 / 2) + 40 ));
+		menu[2].setFont(font);
+		menu[2].setFillColor(sf::Color::White);
+		menu[2].setString("High Scores");
+		menu[2].setPosition(sf::Vector2f((x2 / 2) - 80, (y2 / 2) + 120));
 
-	menu[1].setFont(font);
-	menu[1].setFillColor(sf::Color::White);
-	menu[1].setString("New Game");
-	menu[1].setPosition(sf::Vector2f((x2 / 2) - 80, (y2 / 2) + 80));
+		menu[3].setFont(font);
+		menu[3].setFillColor(sf::Color::White);
+		menu[3].setString("Tutorial");
+		menu[3].setPosition(sf::Vector2f((x2 / 2) - 80, (y2 / 2) + 160));
 
-	menu[2].setFont(font);
-	menu[2].setFillColor(sf::Color::White);
-	menu[2].setString("Load Game");
-	menu[2].setPosition(sf::Vector2f((x2 / 2) - 80, (y2 / 2) + 120));
+		menu[4].setFont(font);
+		menu[4].setFillColor(sf::Color::White);
+		menu[4].setString("Settings");
+		menu[4].setPosition(sf::Vector2f((x2 / 2) - 80, (y2 / 2) + 200));
 
-	menu[3].setFont(font);
-	menu[3].setFillColor(sf::Color::White);
-	menu[3].setString("Settings");
-	menu[3].setPosition(sf::Vector2f((x2 / 2) - 80, (y2 / 2) + 160));
+		menu[5].setFont(font);
+		menu[5].setFillColor(sf::Color::White);
+		menu[5].setString("Quit");
+		menu[5].setPosition(sf::Vector2f((x2 / 2) - 80, (y2 / 2) + 240));
 
-	menu[4].setFont(font);
-	menu[4].setFillColor(sf::Color::White);
-	menu[4].setString("Quit");
-	menu[4].setPosition(sf::Vector2f((x2 / 2) - 80, (y2 / 2) + 200));
-
-	selectedItemIndex = 0;
-
+		selectedItemIndex = 0;
 	//std::this_thread::sleep_for(std::chrono::milliseconds(4000));
   }
   setLoaded(true);
@@ -147,18 +141,21 @@ void MenuScene::Update(const double& dt) {
 		switch (GetPressedItem())
 		{
 		case 0:
-			Engine::ChangeScene(&stateScene);
+			Engine::ChangeScene(&level1);
 			break;
 		case 1:
 			Engine::ChangeScene(&decisionScene);
 			break;
 		case 2:
-			Engine::ChangeScene(&decisionScene);
+			Engine::ChangeScene(&highscores);
 			break;
 		case 3:
-			Engine::ChangeScene(&decisionScene);
+			Engine::ChangeScene(&tutorial);
 			break;
 		case 4:
+			Engine::ChangeScene(&settings);
+			break;
+		case 5:
 			Engine::GetWindow().close();
 			break;
 		}
@@ -166,19 +163,23 @@ void MenuScene::Update(const double& dt) {
 }
 
 void MenuScene::Render() {
-
-	
 	Scene::Render();
-	Renderer::queue(&roboarm);
-	Renderer::queue(&roboarm2);
 
-	if (a <= 255) {
+	if (a <= 250) {
+		roboarm.setColor(sf::Color(255, 255, 255, a));
+		roboarm2.setColor(sf::Color(255, 255, 255, a));
 		sprite91.setColor(sf::Color(255, 255, 255, a));
 		a++;
+		Renderer::queue(&roboarm);
+		Renderer::queue(&roboarm2);
 		Renderer::queue(&sprite91);
 	}
 	else {
+		roboarm.setColor(sf::Color(255, 255, 255, 255));
+		roboarm2.setColor(sf::Color(255, 255, 255, 255));
 		sprite91.setColor(sf::Color(255, 255, 255, 255));
+		Renderer::queue(&roboarm);
+		Renderer::queue(&roboarm2);
 		Renderer::queue(&sprite91);
 		for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
 		{

@@ -1,5 +1,4 @@
 #pragma once
-
 #include <engine.h>
 
 class StateScene : public Scene

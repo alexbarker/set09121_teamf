@@ -24,6 +24,27 @@ sf::Texture tex4;
 Vector2f target4;
 sf::Vector2u TextureSize4;  //Added to store texture size.
 sf::Vector2u WindowSize4;   //Added to store window size.
+sf::Sprite sprite41;
+sf::Texture tex41;
+Vector2f target41;
+sf::Vector2u TextureSize41;  //Added to store texture size.
+sf::Vector2u WindowSize41;   //Added to store window size.
+int b = 0;
+
+void DecisionScene::SetTitle() {
+	tex41 = *Resources::load<Texture>("title.png");
+	float x1 = Engine::GetWindow().getSize().x;
+	float y1 = Engine::GetWindow().getSize().y;
+	TextureSize41 = tex41.getSize(); //Get size of texture.
+	WindowSize41 = Engine::GetWindow().getSize();             //Get size of window.
+	float ScaleX = (float)WindowSize41.x / TextureSize41.x;
+	float ScaleY = (float)WindowSize41.y / TextureSize41.y;     //Calculate scale.
+	target41 = { x1 , y1 };
+	sprite41.setTexture(tex41);
+	sprite41.setPosition(WindowSize41.x / 9.2, WindowSize41.y / 12.5);
+	sprite41.setScale(ScaleX / 6, ScaleY / 6);
+	sprite41.setOrigin(TextureSize41.x / 2, TextureSize41.y / 2);
+}
 
 void DecisionScene::SetBackground() {
 	tex4 = *Resources::load<Texture>("main1.png");
@@ -48,6 +69,7 @@ void DecisionScene::Load()
 	Engine::GetWindow().setSize(sf::Vector2u(x2, y2));
 	Engine::GetWindow().display();
 	SetBackground();
+	SetTitle();
 
 	s1.stop();
 	s2.play2(1, true);
@@ -55,7 +77,7 @@ void DecisionScene::Load()
 	player->addTag("player");
 	player->setPosition(Vector2f(Engine::GetWindow().getSize().x / 2, Engine::GetWindow().getSize().y / 2));
 	auto s = player->addComponent<ShapeComponent>();
-	s->setShape<CircleShape>(20.0f);
+	s->setShape<CircleShape>(10.0f);
 	s->getShape().setFillColor(Color::Blue);
 	player->addComponent<BasicMovementComponent>();
 
@@ -124,5 +146,16 @@ void DecisionScene::Update(const double& dt) {
 }
 
 void DecisionScene::Render() { 
-	Renderer::queue(&sprite4);
-	Scene::Render(); }
+	Scene::Render();
+	if (b <= 250) {
+		sprite41.setColor(sf::Color(255, 255, 255, b));
+		b--;
+		Renderer::queue(&sprite4);
+		Renderer::queue(&sprite41);
+	}
+	else {
+		b = 0;
+		Renderer::queue(&sprite4);
+		Renderer::queue(&sprite41);
+	}
+}

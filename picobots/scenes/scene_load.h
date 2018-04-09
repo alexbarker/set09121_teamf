@@ -1,7 +1,7 @@
 #pragma once
 #include "engine.h"
 
-class TutorialScene : public Scene {
+class LoadScene : public Scene {
 public:
 	void Load() override;
 
@@ -11,4 +11,4 @@ public:
 
 	void Render() override;
 };
-#pragma once
+

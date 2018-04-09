@@ -7,10 +7,18 @@ using namespace std;
 
 SplashScene splash;
 MenuScene menu;
-StateScene stateScene;
-DecisionScene decisionScene;
+StateScene stateScene;		//tbd
+DecisionScene decisionScene;//tbd
+Level1Scene level1;
+BossLevelScene bosslevel;
+SettingsScene settings;
+GameOverScene gameover;
+EndGameScene endgame;
+HighScoresScene highscores;
+TutorialScene tutorial;
+LoadScene load;
 
 int main() {
 
-	Engine::Start(1500, 840, "Picobots", &splash);
+	Engine::Start(1504, 846, "Picobots", &splash);
 }
