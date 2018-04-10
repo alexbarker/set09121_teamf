@@ -16,12 +16,14 @@ PICOBOTS - A game for coursework. Will update description later.
 
 # Features & Milestones
 
-| Version | Milestone |
+| Version | Features & Milestones |
 | ------ | ------ |
 | 0.0.1 | Project Creation |
-| 0.1.0 | Project Generation via CMake |
-| 0.2.0 | Added Music Component |
-| 0.3.0 | Added Splash Screen |
-| 0.3.0 | Added Menu System |
-| 0.3.0 |  |
-| 0.3.0 |  |
+| 0.1 | Project Generation via CMake |
+| 0.2 | Music Component |
+| 0.3 | Splash Screen |
+| 0.3 | Menu System |
+| 0.4 | Level Template |
+| 0.4 | Animated Player |
+| 0.4 |  |
+| 0.4 |  |
