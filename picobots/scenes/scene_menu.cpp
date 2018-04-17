@@ -11,9 +11,11 @@
 #include "maths.h"
 #include "LevelSystem.h"
 #include <SFML/Graphics.hpp>
+#include "../add_entity.h"
 
 using namespace std;
 using namespace sf;
+
 sf::Sprite sprite91;
 sf::Texture tex91;
 Vector2f target91;
@@ -25,7 +27,7 @@ sf::Texture roboarmTexture;
 sf::IntRect roboSource(0, 0, 400, 300);
 sf::Sprite roboarm(roboarmTexture, roboSource);
 sf::Texture roboarmTexture2;
-sf::IntRect roboSource2(400, 0, -400, 300);
+sf::IntRect roboSource2(0, 0, -400, 300);
 sf::Sprite roboarm2(roboarmTexture2, roboSource2);
 sf::Clock clock1;
 
@@ -33,8 +35,8 @@ void MenuScene::SetTitle() {
 	tex91 = *Resources::load<Texture>("title.png");
 	float x = Engine::GetWindow().getSize().x;
 	float y = Engine::GetWindow().getSize().y;
-	TextureSize91 = tex91.getSize(); //Get size of texture.
-	WindowSize91 = Engine::GetWindow().getSize();             //Get size of window.
+	TextureSize91 = tex91.getSize();							//Get size of texture.
+	WindowSize91 = Engine::GetWindow().getSize();               //Get size of window.
 	float ScaleX = (float)WindowSize91.x / TextureSize91.x;
 	float ScaleY = (float)WindowSize91.y / TextureSize91.y;     //Calculate scale.
 	target91 = { x , y };
@@ -91,6 +93,7 @@ void MenuScene::Load() {
 		menu[5].setPosition(sf::Vector2f((x2 / 2) - 80, (y2 / 2) + 240));
 
 		selectedItemIndex = 0;
+
 	//std::this_thread::sleep_for(std::chrono::milliseconds(4000));
   }
   setLoaded(true);
@@ -98,21 +101,8 @@ void MenuScene::Load() {
 
 void MenuScene::Update(const double& dt) {	
 	Scene::Update(dt);
-	if (clock1.getElapsedTime().asSeconds() > 0.3f) {
-		if (roboSource.left == 2800) {
-			roboSource.left = 0;
-			roboSource2.left = 0;
-		}
-		else {
-			roboSource.left += 400;
-			roboarm.setTextureRect(roboSource);
-			roboSource2.left += 400;
-			roboarm2.setTextureRect(roboSource2);
-			clock1.restart();
-		}
-	}
 
-		Event event;
+	Event event;
 		while (Engine::GetWindow().pollEvent(event)) {
 			if (event.type == sf::Event::Resized) {
 
@@ -144,7 +134,7 @@ void MenuScene::Update(const double& dt) {
 			Engine::ChangeScene(&level1);
 			break;
 		case 1:
-			Engine::ChangeScene(&decisionScene);
+			Engine::ChangeScene(&level1);
 			break;
 		case 2:
 			Engine::ChangeScene(&highscores);
@@ -164,6 +154,23 @@ void MenuScene::Update(const double& dt) {
 
 void MenuScene::Render() {
 	Scene::Render();
+
+	if (clock1.getElapsedTime().asSeconds() > 0.2f) {
+		if (roboSource.left == 6000) {
+			roboSource.left = 0;
+			roboSource2.left = 0;
+			if (clock1.getElapsedTime().asSeconds() > 0.2f) { AddEntity::makeFakePlayer2(this, Vector2f(0.f, 450.f), Vector2f(70.f, 950.f), 2.0f); }
+			if (clock1.getElapsedTime().asSeconds() > 0.2f) { AddEntity::makeFakePlayer1(this, Vector2f(Engine::getWindowSize().x - 25.f, 450.f), Vector2f(Engine::getWindowSize().x - 70.f, 450.f), 2.0f); }
+		}
+		else {
+
+			roboSource.left += 400;
+			roboarm.setTextureRect(roboSource);
+			roboSource2.left += 400;
+			roboarm2.setTextureRect(roboSource2);
+			clock1.restart();
+		}
+	}
 
 	if (a <= 250) {
 		roboarm.setColor(sf::Color(255, 255, 255, a));

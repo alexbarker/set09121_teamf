@@ -12,6 +12,8 @@
 #include "../components/cmp_basic_movement.h"
 #include "../components/cmp_state_machine.h"
 #include "system_renderer.h"
+#include "scene_level1.h"
+#include "../add_entity.h"
 
 using namespace std;
 using namespace sf;
@@ -26,18 +28,13 @@ sf::Vector2u WindowSize77;   //Added to store window size.
 sf::Sprite sprite78;
 sf::Texture tex78;
 Vector2f target78;
-sf::Vector2u TextureSize78;  //Added to store texture size.
-sf::Vector2u WindowSize78;   //Added to store window size.
+sf::Vector2u TextureSize78;  
+sf::Vector2u WindowSize78;   
 Vector2f target79;
-sf::Vector2u TextureSize79;  //Added to store texture size.
-sf::Vector2u WindowSize79;   //Added to store window size.
+sf::Vector2u TextureSize79;  
+sf::Vector2u WindowSize79;  
 int c = 0;
 sf::Clock clock2;
-
-sf::Texture playerBotTex;
-sf::IntRect playerSource(0, 0, 206, 207);
-sf::Sprite playerBotSprite(playerBotTex, playerSource);
-float rotation = 0;
 
 void Level1Scene::SetTitle() {
 	tex78 = *Resources::load<Texture>("title.png");
@@ -81,18 +78,7 @@ void Level1Scene::Load() {
 	SetBackground();
 	SetTitle();
 
-	playerBotSprite.setPosition(400.f, 400.0f);
-	playerBotTex.loadFromFile("res/img/PlayerSpritesheet.png");
-	//playerBotTex.setSmooth(true);
-	playerBotSprite.setTexture(playerBotTex);
-
-	auto player = makeEntity();
-	player->addTag("player");
-	player->setPosition(Vector2f(x2 / 2, y2 / 2));
-	auto s = player->addComponent<SpriteComponent>();
-	s->setSprite(playerBotSprite);
-	player->addComponent<BasicMovementComponent>();
-	playerBotSprite.setScale(0.3, 0.3);
+	player = AddEntity::makePlayer(this, Vector2f(600.f,100.f));
 }
 
 void Level1Scene::UnLoad() {
@@ -104,16 +90,6 @@ void Level1Scene::UnLoad() {
 
 void Level1Scene::Update(const double& dt) {
 	Scene::Update(dt);
-	if (clock2.getElapsedTime().asSeconds() > 0.08f) {
-		if (playerSource.left == 2884) {
-			playerSource.left = 0;
-		}
-		else {
-			playerSource.left += 206;
-			playerBotSprite.setTextureRect(playerSource);
-			clock2.restart();
-		}
-	}
 
 	Event event;
 	while (Engine::GetWindow().pollEvent(event)) {
@@ -128,8 +104,7 @@ void Level1Scene::Update(const double& dt) {
 		UnLoad();
 		Load();
 	}
-
-	if (sf::Keyboard::isKeyPressed(Keyboard::Space)) {
+	if (sf::Keyboard::isKeyPressed(Keyboard::Escape)) {
 		s1.play1(0, true);
 		Engine::ChangeScene(&menu);
 	}
@@ -137,7 +112,6 @@ void Level1Scene::Update(const double& dt) {
 
 void Level1Scene::Render() {
 	Scene::Render();
-	Renderer::queue(&playerBotSprite);
 
 	if (c <= 250) {
 		sprite78.setColor(sf::Color(255, 255, 255, c));
@@ -146,10 +120,8 @@ void Level1Scene::Render() {
 		Renderer::queue(&sprite78);
 	}
 	else {
-		c = 0;
-		
+		c = 0;	
 		Renderer::queue(&sprite77);
-		Renderer::queue(&sprite78);
-		
+		Renderer::queue(&sprite78);		
 	}
 }

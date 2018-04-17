@@ -43,7 +43,7 @@ void LoadScene::Update(const double& dt) {
 		Load();
 	}
 
-	if (sf::Keyboard::isKeyPressed(Keyboard::Space)) {
+	if (sf::Keyboard::isKeyPressed(Keyboard::Escape)) {
 		Engine::ChangeScene(&menu);
 	}
 }

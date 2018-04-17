@@ -7,8 +7,6 @@ using namespace std;
 
 SplashScene splash;
 MenuScene menu;
-StateScene stateScene;		//tbd
-DecisionScene decisionScene;//tbd
 Level1Scene level1;
 BossLevelScene bosslevel;
 SettingsScene settings;

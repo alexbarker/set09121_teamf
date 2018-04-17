@@ -15,6 +15,8 @@
 using namespace std;
 using namespace sf;
 MusicPlayer s1;
+MusicPlayer s2;
+MusicPlayer s3;
 sf::Sprite sprite;
 sf::Texture tex;
 Vector2f target;

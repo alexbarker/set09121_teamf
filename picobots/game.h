@@ -2,8 +2,6 @@
 
 #include "scenes/scene_splash.h"
 #include "scenes/scene_menu.h"
-#include "scenes/scene_state.h"
-#include "scenes/scene_decision.h"
 #include "components/cmp_music.h"
 #include "scenes/scene_level1.h"
 #include "scenes/scene_boss_level.h"
@@ -16,8 +14,6 @@
 
 extern SplashScene splash;
 extern MenuScene menu;
-extern StateScene stateScene;		//tbd
-extern DecisionScene decisionScene; //tbd
 extern Level1Scene level1;
 extern BossLevelScene bosslevel;
 extern SettingsScene  settings;
