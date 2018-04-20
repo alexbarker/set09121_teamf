@@ -11,6 +11,7 @@
 #include "../components/cmp_sprite.h"
 #include "../components/cmp_basic_movement.h"
 #include "../components/cmp_state_machine.h"
+#include "../components/cmp_physics.h"
 #include "system_renderer.h"
 #include "scene_level1.h"
 #include "../add_entity.h"
@@ -35,6 +36,7 @@ sf::Vector2u TextureSize79;
 sf::Vector2u WindowSize79;  
 int c = 0;
 sf::Clock clock2;
+Vector2f view_center;
 
 void Level1Scene::SetTitle() {
 	tex78 = *Resources::load<Texture>("title.png");
@@ -75,21 +77,61 @@ void Level1Scene::Load() {
 	Engine::GetWindow().setSize(sf::Vector2u(x2, y2));
 	Engine::GetWindow().display();
 
+	ls::loadLevelFile("res/testLevel.txt", 20.0f);
+	auto ho = Engine::getWindowSize().y - (ls::getHeight() * 20.f);
+	ls::setOffset(Vector2f(328, ho));
+
 	SetBackground();
 	SetTitle();
 
-	player = AddEntity::makePlayer(this, Vector2f(600.f,100.f));
+	player = AddEntity::makePlayer(this, Vector2f(800.f,500.f));
+
+	AddEntity::makeWalls(this);
+
+	view_center = player->getPosition();
 }
 
 void Level1Scene::UnLoad() {
 	float x2 = Engine::GetWindow().getSize().x;
 	float y2 = Engine::GetWindow().getSize().y;
 	Engine::GetWindow().setView(sf::View(sf::FloatRect(0, 0, x2, y2)));
+	player.reset();
+	ls::unload();
 	Scene::UnLoad();
 }
 
 void Level1Scene::Update(const double& dt) {
-	Scene::Update(dt);
+
+	
+	const auto pp = player->getPosition();
+	if (ls::getTileAt(pp) == ls::END) {
+		Engine::ChangeScene((Scene*)&level1);
+	}
+	else if (!player->isAlive()) {
+		Engine::ChangeScene((Scene*)&level1);
+	}
+	
+	/*
+	if (ls::getTileAt(player->getPosition()) == ls::END) {
+		Engine::ChangeScene((Scene*)&level1);
+	}*/
+	/*
+	if (ls::getTileAt(player->getPosition()) == ls::WALL) {
+		auto physics = player->addComponent<PhysicsComponent>(true, sf::Vector2f(51.533333333333333333333333333333f, 52.f));
+		physics->setGravityScale(0);
+		//physics->impulse(sf::Vector2f(7.5f, 0));
+		physics->dampen(sf::Vector2f(0.f, 0));
+		player.reset();
+	}*/
+
+	/*
+	//View view1(FloatRect(0, 0, Engine::GetWindow().getSize().x, Engine::GetWindow().getSize().y));
+	/*
+	float view_player_distance = sqrt(((player->getPosition().x - view_center.x) * (player->getPosition().x - view_center.x)) + ((player->getPosition().y - view_center.y) * (player->getPosition().y - view_center.y)));
+	if (view_player_distance > 40.f)
+		view_center += (player->getPosition() - view_center) *(float)dt * 4.f;
+	view1.setCenter(view_center);
+	*/
 
 	Event event;
 	while (Engine::GetWindow().pollEvent(event)) {
@@ -108,9 +150,11 @@ void Level1Scene::Update(const double& dt) {
 		s1.play1(0, true);
 		Engine::ChangeScene(&menu);
 	}
+	Scene::Update(dt);
 }
 
 void Level1Scene::Render() {
+	ls::render(Engine::GetWindow());
 	Scene::Render();
 
 	if (c <= 250) {

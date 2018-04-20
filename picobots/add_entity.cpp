@@ -1,24 +1,33 @@
 #include "add_entity.h"
 #include "animation.h"
 #include "components/cmp_basic_movement.h"
+#include "components/cmp_actor_movement.h"
 #include "components/cmp_sprite.h"
 #include "system_resources.h"
 #include "components/cmp_physics.h"
+#include "components/cmp_player_physics.h"
+#include <LevelSystem.h>
 
 using namespace sf;
 using namespace std;
 
 std::shared_ptr<Entity> AddEntity::makePlayer(Scene* scene, const Vector2f& pos) {
 	auto player = scene->makeEntity();
-	player->setPosition(pos);
+	//player->setPosition(pos);
+	player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
 	player->addTag("player");
+
 
 	auto animation = player->addComponent<AnimationComponent>(Vector2f(51.533333333333333333333333333333f, 52.f));
 	sf::Texture s = *Resources::load<Texture>("PlayerSpritesheet.png");
 	animation->setSpritesheet(s);
 	animation->setFrameCount(15);
 	animation->setFrameTime(0.06f);
-	player->addComponent<BasicMovementComponent>();
+	//player->addComponent<ActorMovementComponent>();
+	//player->addComponent<BasicMovementComponent>();
+
+	player->addComponent<PlayerPhysicsComponent>(Vector2f(51.533333333333333333333333333333f, 52.f));
+
 
 	return player;
 }
@@ -57,4 +66,15 @@ std::shared_ptr<Entity> AddEntity::makeFakePlayer2(Scene* scene, const Vector2f&
 	animation->setFrameTime(0.07f);
 
 	return makeFakePlayer2;
+}
+
+void AddEntity::makeWalls(Scene* scene) {
+	auto walls = ls::findTiles(ls::WALL);
+	for (auto w : walls) {
+		auto pos = ls::getTilePosition(w);
+		pos += Vector2f(10.f, 10.f);
+		auto e = scene->makeEntity();
+		e->setPosition(pos);
+		e->addComponent<PhysicsComponent>(false, Vector2f(20.f, 20.f));
+	}
 }
