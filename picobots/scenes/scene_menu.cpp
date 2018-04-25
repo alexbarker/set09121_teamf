@@ -16,12 +16,12 @@
 using namespace std;
 using namespace sf;
 
-sf::Sprite sprite91;
-sf::Texture tex91;
-Vector2f target91;
-sf::Vector2u TextureSize91;  //Added to store texture size.
-sf::Vector2u WindowSize91;   //Added to store window size.
-int a = 0;
+sf::Sprite titleSprite;
+sf::Texture titleTexture;
+Vector2f target;
+sf::Vector2u titleTextureSize;  //Added to store texture size.
+sf::Vector2u windowSizeMenu;   //Added to store window size.
+int fadeCounter = 0;
 
 sf::Texture roboarmTexture;
 sf::IntRect roboSource(0, 0, 400, 300);
@@ -32,18 +32,17 @@ sf::Sprite roboarm2(roboarmTexture2, roboSource2);
 sf::Clock clock1;
 
 void MenuScene::SetTitle() {
-	tex91 = *Resources::load<Texture>("title.png");
+	titleTexture = *Resources::load<Texture>("title.png");
 	float x = Engine::GetWindow().getSize().x;
 	float y = Engine::GetWindow().getSize().y;
-	TextureSize91 = tex91.getSize();							//Get size of texture.
-	WindowSize91 = Engine::GetWindow().getSize();               //Get size of window.
-	float ScaleX = (float)WindowSize91.x / TextureSize91.x;
-	float ScaleY = (float)WindowSize91.y / TextureSize91.y;     //Calculate scale.
-	target91 = { x , y };
-	sprite91.setTexture(tex91);
-	sprite91.setPosition(WindowSize91.x/2, WindowSize91.y/3);
-	//sprite91.setScale(ScaleX/2, ScaleY/2);
-	sprite91.setOrigin(TextureSize91.x/2, TextureSize91.y/2);
+	titleTextureSize = titleTexture.getSize();							//Get size of texture.
+	windowSizeMenu = Engine::GetWindow().getSize();               //Get size of window.
+	float ScaleX = (float)windowSizeMenu.x / titleTextureSize.x;
+	float ScaleY = (float)windowSizeMenu.y / titleTextureSize.y;     //Calculate scale.
+	target = { x , y };
+	titleSprite.setTexture(titleTexture);
+	titleSprite.setPosition(windowSizeMenu.x/2, windowSizeMenu.y/3);
+	titleSprite.setOrigin(titleTextureSize.x/2, titleTextureSize.y/2);
 }
 
 void MenuScene::Load() {
@@ -105,7 +104,6 @@ void MenuScene::Update(const double& dt) {
 	Event event;
 		while (Engine::GetWindow().pollEvent(event)) {
 			if (event.type == sf::Event::Resized) {
-
 				UnLoad();
 				Engine::GetWindow().setSize(sf::Vector2u(event.size.width, event.size.height));
 				Engine::GetWindow().display();		
@@ -114,7 +112,7 @@ void MenuScene::Update(const double& dt) {
 		}
 
 	if (sf::Keyboard::isKeyPressed(Keyboard::R)) {
-		a = 0;
+		fadeCounter = 0;
 		UnLoad();
 		Load();
 	}
@@ -134,7 +132,7 @@ void MenuScene::Update(const double& dt) {
 			Engine::ChangeScene(&level1);
 			break;
 		case 1:
-			Engine::ChangeScene(&level1);
+			Engine::ChangeScene(&load);
 			break;
 		case 2:
 			Engine::ChangeScene(&highscores);
@@ -172,23 +170,23 @@ void MenuScene::Render() {
 		}
 	}
 
-	if (a <= 250) {
-		roboarm.setColor(sf::Color(255, 255, 255, a));
-		roboarm2.setColor(sf::Color(255, 255, 255, a));
-		sprite91.setColor(sf::Color(255, 255, 255, a));
-		a++;
+	if (fadeCounter <= 250) {
+		roboarm.setColor(sf::Color(255, 255, 255, fadeCounter));
+		roboarm2.setColor(sf::Color(255, 255, 255, fadeCounter));
+		titleSprite.setColor(sf::Color(255, 255, 255, fadeCounter));
+		fadeCounter++;
 		Renderer::queue(&roboarm);
 		Renderer::queue(&roboarm2);
-		Renderer::queue(&sprite91);
+		Renderer::queue(&titleSprite);
 	}
 	else {
 		roboarm.setColor(sf::Color(255, 255, 255, 255));
 		roboarm2.setColor(sf::Color(255, 255, 255, 255));
-		sprite91.setColor(sf::Color(255, 255, 255, 255));
+		titleSprite.setColor(sf::Color(255, 255, 255, 255));
 		Renderer::queue(&roboarm);
 		Renderer::queue(&roboarm2);
-		Renderer::queue(&sprite91);
-		for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
+		Renderer::queue(&titleSprite);
+		for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++) 
 		{
 			Renderer::queue(&menu[i]);
 		}

@@ -21,55 +21,47 @@ using namespace sf;
 
 static shared_ptr<Entity> player;
 
-sf::Sprite sprite77;
-sf::Texture tex77;
-Vector2f target77;
-sf::Vector2u TextureSize77;  //Added to store texture size.
-sf::Vector2u WindowSize77;   //Added to store window size.
-sf::Sprite sprite78;
-sf::Texture tex78;
-Vector2f target78;
-sf::Vector2u TextureSize78;  
-sf::Vector2u WindowSize78;   
-Vector2f target79;
-sf::Vector2u TextureSize79;  
-sf::Vector2u WindowSize79;  
-int c = 0;
-sf::Clock clock2;
-Vector2f view_center;
+sf::Sprite backgroundSprite1a;
+sf::Texture backgroungTexture1a;
+sf::Vector2u backgroundSize1a;  //Added to store texture size.
+sf::Vector2u windowSize1a;   //Added to store window size.
+sf::Sprite titleSprite1b;
+sf::Texture titleTexture1b;
+sf::Vector2u titleSize1b;  
+sf::Vector2u windowSize1b;   
+int fadeCounter1 = 0;
 
 void Level1Scene::SetTitle() {
-	tex78 = *Resources::load<Texture>("title.png");
+	titleTexture1b = *Resources::load<Texture>("title.png");
 	float x1 = Engine::GetWindow().getSize().x;
 	float y1 = Engine::GetWindow().getSize().y;
-	TextureSize78 = tex78.getSize(); //Get size of texture.
-	WindowSize78 = Engine::GetWindow().getSize();             //Get size of window.
-	float ScaleX = (float)WindowSize78.x / TextureSize78.x;
-	float ScaleY = (float)WindowSize78.y / TextureSize78.y;     //Calculate scale.
-	target78 = { x1 , y1 };
-	sprite78.setTexture(tex78);
-	sprite78.setPosition(WindowSize78.x / 9.2, WindowSize78.y / 12.5);
-	sprite78.setScale(ScaleX / 6, ScaleY / 6);
-	sprite78.setOrigin(TextureSize78.x / 2, TextureSize78.y / 2);
+	titleSize1b = titleTexture1b.getSize(); //Get size of texture.
+	windowSize1b = Engine::GetWindow().getSize();             //Get size of window.
+	float ScaleX = (float)windowSize1b.x / titleSize1b.x;
+	float ScaleY = (float)windowSize1b.y / titleSize1b.y;     //Calculate scale.
+	titleSprite1b.setTexture(titleTexture1b);
+	titleSprite1b.setPosition(windowSize1b.x / 9.2, windowSize1b.y / 12.5);
+	titleSprite1b.setScale(ScaleX / 6, ScaleY / 6);
+	titleSprite1b.setOrigin(titleSize1b.x / 2, titleSize1b.y / 2);
 }
 
 void Level1Scene::SetBackground() {
-	tex77 = *Resources::load<Texture>("main1.png");
+	backgroungTexture1a = *Resources::load<Texture>("main1.png");
 	float x = Engine::GetWindow().getSize().x;
 	float y = Engine::GetWindow().getSize().y;
-	TextureSize77 = tex77.getSize(); //Get size of texture.
-	WindowSize77 = Engine::GetWindow().getSize();             //Get size of window.
-	float ScaleX = (float)WindowSize77.x / TextureSize77.x;
-	float ScaleY = (float)WindowSize77.y / TextureSize77.y;     //Calculate scale.
-	target77 = { x , y };
-	sprite77.setTexture(tex77);
-	sprite77.setPosition(0, 0);
-	sprite77.setScale(ScaleX, ScaleY);
-	sprite77.setOrigin(0, 0);
+	backgroundSize1a = backgroungTexture1a.getSize(); //Get size of texture.
+	windowSize1a = Engine::GetWindow().getSize();             //Get size of window.
+	float ScaleX = (float)windowSize1a.x / backgroundSize1a.x;
+	float ScaleY = (float)windowSize1a.y / backgroundSize1a.y;     //Calculate scale.
+	backgroundSprite1a.setTexture(backgroungTexture1a);
+	backgroundSprite1a.setPosition(0, 0);
+	backgroundSprite1a.setScale(ScaleX, ScaleY);
+	backgroundSprite1a.setOrigin(0, 0);
 }
 
 void Level1Scene::Load() {
 	s1.stop();
+	s3.stop();
 	s2.play2(1, true);
 
 	float x2 = Engine::getWindowSize().x;
@@ -77,18 +69,18 @@ void Level1Scene::Load() {
 	Engine::GetWindow().setSize(sf::Vector2u(x2, y2));
 	Engine::GetWindow().display();
 
-	ls::loadLevelFile("res/testLevel.txt", 20.0f);
-	auto ho = Engine::getWindowSize().y - (ls::getHeight() * 20.f);
-	ls::setOffset(Vector2f(328, ho));
+	float temp = y2 / 44;
+
+	ls::loadLevelFile("res/level1.txt", temp);
+	auto ho = Engine::getWindowSize().y - (ls::getHeight() * temp);
+	ls::setOffset(Vector2f(x2/4.72, ho));
 
 	SetBackground();
 	SetTitle();
 
-	player = AddEntity::makePlayer(this, Vector2f(800.f,500.f));
+	player = AddEntity::makePlayer(this, Vector2f(x2/2,y2/2));
 
 	AddEntity::makeWalls(this);
-
-	view_center = player->getPosition();
 }
 
 void Level1Scene::UnLoad() {
@@ -102,36 +94,10 @@ void Level1Scene::UnLoad() {
 
 void Level1Scene::Update(const double& dt) {
 
-	
 	const auto pp = player->getPosition();
 	if (ls::getTileAt(pp) == ls::END) {
-		Engine::ChangeScene((Scene*)&level1);
+		Engine::ChangeScene((Scene*)&level2);
 	}
-	else if (!player->isAlive()) {
-		Engine::ChangeScene((Scene*)&level1);
-	}
-	
-	/*
-	if (ls::getTileAt(player->getPosition()) == ls::END) {
-		Engine::ChangeScene((Scene*)&level1);
-	}*/
-	/*
-	if (ls::getTileAt(player->getPosition()) == ls::WALL) {
-		auto physics = player->addComponent<PhysicsComponent>(true, sf::Vector2f(51.533333333333333333333333333333f, 52.f));
-		physics->setGravityScale(0);
-		//physics->impulse(sf::Vector2f(7.5f, 0));
-		physics->dampen(sf::Vector2f(0.f, 0));
-		player.reset();
-	}*/
-
-	/*
-	//View view1(FloatRect(0, 0, Engine::GetWindow().getSize().x, Engine::GetWindow().getSize().y));
-	/*
-	float view_player_distance = sqrt(((player->getPosition().x - view_center.x) * (player->getPosition().x - view_center.x)) + ((player->getPosition().y - view_center.y) * (player->getPosition().y - view_center.y)));
-	if (view_player_distance > 40.f)
-		view_center += (player->getPosition() - view_center) *(float)dt * 4.f;
-	view1.setCenter(view_center);
-	*/
 
 	Event event;
 	while (Engine::GetWindow().pollEvent(event)) {
@@ -157,15 +123,15 @@ void Level1Scene::Render() {
 	ls::render(Engine::GetWindow());
 	Scene::Render();
 
-	if (c <= 250) {
-		sprite78.setColor(sf::Color(255, 255, 255, c));
-		c--;
-		Renderer::queue(&sprite77);
-		Renderer::queue(&sprite78);
+	if (fadeCounter1 <= 250) {
+		titleSprite1b.setColor(sf::Color(255, 255, 255, fadeCounter1));
+		fadeCounter1--;
+		Renderer::queue(&backgroundSprite1a);
+		Renderer::queue(&titleSprite1b);
 	}
 	else {
-		c = 0;	
-		Renderer::queue(&sprite77);
-		Renderer::queue(&sprite78);		
+		fadeCounter1 = 0;
+		Renderer::queue(&backgroundSprite1a);
+		Renderer::queue(&titleSprite1b);
 	}
 }

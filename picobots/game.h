@@ -4,6 +4,12 @@
 #include "scenes/scene_menu.h"
 #include "components/cmp_music.h"
 #include "scenes/scene_level1.h"
+#include "scenes/scene_level2.h"
+#include "scenes/scene_level3.h"
+#include "scenes/scene_level4.h"
+#include "scenes/scene_level5.h"
+#include "scenes/scene_level6.h"
+#include "scenes/scene_level7.h"
 #include "scenes/scene_boss_level.h"
 #include "scenes/scene_settings.h"
 #include "scenes/scene_game_over.h"
@@ -15,6 +21,12 @@
 extern SplashScene splash;
 extern MenuScene menu;
 extern Level1Scene level1;
+extern Level2Scene level2;
+extern Level3Scene level3;
+extern Level4Scene level4;
+extern Level5Scene level5;
+extern Level6Scene level6;
+extern Level7Scene level7;
 extern BossLevelScene bosslevel;
 extern SettingsScene  settings;
 extern GameOverScene  gameover;

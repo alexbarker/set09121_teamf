@@ -7,6 +7,7 @@
 #include "components/cmp_physics.h"
 #include "components/cmp_player_physics.h"
 #include <LevelSystem.h>
+#include <SFML/Graphics/Transformable.hpp>
 
 using namespace sf;
 using namespace std;
@@ -17,17 +18,13 @@ std::shared_ptr<Entity> AddEntity::makePlayer(Scene* scene, const Vector2f& pos)
 	player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
 	player->addTag("player");
 
-
-	auto animation = player->addComponent<AnimationComponent>(Vector2f(51.533333333333333333333333333333f, 52.f));
+	auto animation = player->addComponent<AnimationComponent>(Vector2f(46.f, 46.f));
 	sf::Texture s = *Resources::load<Texture>("PlayerSpritesheet.png");
 	animation->setSpritesheet(s);
 	animation->setFrameCount(15);
 	animation->setFrameTime(0.06f);
-	//player->addComponent<ActorMovementComponent>();
-	//player->addComponent<BasicMovementComponent>();
 
-	player->addComponent<PlayerPhysicsComponent>(Vector2f(51.533333333333333333333333333333f, 52.f));
-
+	player->addComponent<PlayerPhysicsComponent>(Vector2f(22.f, 17.f));
 
 	return player;
 }
@@ -37,11 +34,11 @@ std::shared_ptr<Entity> AddEntity::makeFakePlayer1(Scene* scene, const Vector2f&
 	fakePlayer1->setPosition(pos);
 	fakePlayer1->addTag("fakePlayer1");
 
-	auto physics = fakePlayer1->addComponent<PhysicsComponent>(true, sf::Vector2f(51.533333333333333333333333333333f, 52.f));
+	auto physics = fakePlayer1->addComponent<PhysicsComponent>(true, sf::Vector2f(46.f, 46.f));
 	physics->impulse(sf::Vector2f(-7.5f, 0));
 	physics->setMass(25000.f);
 
-	auto animation = fakePlayer1->addComponent<AnimationComponent>(Vector2f(51.533333333333333333333333333333f, 52.f));
+	auto animation = fakePlayer1->addComponent<AnimationComponent>(Vector2f(46.f, 46.f));
 	sf::Texture s = *Resources::load<Texture>("PlayerSpritesheet.png");
 	animation->setSpritesheet(s);
 	animation->setFrameCount(15);
@@ -55,11 +52,11 @@ std::shared_ptr<Entity> AddEntity::makeFakePlayer2(Scene* scene, const Vector2f&
 	makeFakePlayer2->setPosition(pos);
 	makeFakePlayer2->addTag("fakePlayer2");
 
-	auto physics = makeFakePlayer2->addComponent<PhysicsComponent>(true, sf::Vector2f(51.533333333333333333333333333333f, 52.f));
+	auto physics = makeFakePlayer2->addComponent<PhysicsComponent>(true, sf::Vector2f(46.f, 46.f));
 	physics->impulse(sf::Vector2f(7.5f, 0));
 	physics->setMass(25000.f);
 
-	auto animation = makeFakePlayer2->addComponent<AnimationComponent>(Vector2f(51.533333333333333333333333333333f, 52.f));
+	auto animation = makeFakePlayer2->addComponent<AnimationComponent>(Vector2f(46.f, 46.f));
 	sf::Texture s = *Resources::load<Texture>("PlayerSpritesheet.png");
 	animation->setSpritesheet(s);
 	animation->setFrameCount(15);
