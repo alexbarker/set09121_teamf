@@ -20,6 +20,7 @@ public:
     EMPTY = ' ',
     START = 's',
     END = 'e',
+	ENDGAME = 'g',
     WALL = 'w',
     ENEMY = 'n',
     WAYPOINT = '+'

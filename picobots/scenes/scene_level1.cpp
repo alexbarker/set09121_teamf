@@ -116,6 +116,7 @@ void Level1Scene::Update(const double& dt) {
 		s1.play1(0, true);
 		Engine::ChangeScene(&menu);
 	}
+
 	Scene::Update(dt);
 }
 

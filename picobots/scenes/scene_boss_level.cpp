@@ -96,9 +96,10 @@ void BossLevelScene::Update(const double& dt) {
 	if (ls::getTileAt(pp) == ls::END) {
 		Engine::ChangeScene((Scene*)&level1);
 	}
-	//if (ls::getTileAt(pp) == ls::END) {
-	//	Engine::ChangeScene((Scene*)&endgame);
-	//}
+	else if (ls::getTileAt(pp) == ls::ENDGAME) {
+		s1.play1(0, true);
+		Engine::ChangeScene((Scene*)&menu);
+	}
 
 	Event event;
 	while (Engine::GetWindow().pollEvent(event)) {

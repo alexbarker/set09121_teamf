@@ -104,6 +104,18 @@ void Engine::Start(unsigned int width, unsigned int height,
     if (Keyboard::isKeyPressed(Keyboard::Q)) {
       window.close();
     }
+	if (sf::Keyboard::isKeyPressed(Keyboard::F)) {
+		_window->create(VideoMode(1920, 1080), _gameName, sf::Style::Fullscreen);
+		_activeScene->UnLoad();
+		_activeScene->Load();
+		window.setFramerateLimit(60);
+	}
+	if (sf::Keyboard::isKeyPressed(Keyboard::D)) {
+		_window->create(VideoMode(1504, 846), _gameName, sf::Style::Default);
+		_activeScene->UnLoad();
+		_activeScene->Load();
+		window.setFramerateLimit(60);
+	}
 	window.clear(sf::Color(50, 50, 50, 255));
     Update();
     Render(window);
