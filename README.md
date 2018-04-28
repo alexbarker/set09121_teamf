@@ -26,7 +26,7 @@ PICOBOTS - A game for coursework. Will update description later.
 | 0.4 | Level Template |
 | 0.4 | Animated Player |
 | 0.5 | Game Loop |
-| 0.5 |  |
+| 0.5 | Fullscreen |
 | 0.5 |  |
 | 0.5 |  |
 | 0.5 |  |
