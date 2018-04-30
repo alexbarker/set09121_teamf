@@ -30,5 +30,8 @@ PICOBOTS - A game for coursework. Will update description later.
 | 0.5 | Text Component |
 | 0.5 | Settings |
 | 0.5 | Tutorial |
+| 0.5 | Sound Effects |
 | 0.5 |  |
-| 0.5 |  |
+| 0.6 |  |
+| 0.6 |  |
+| 0.6 |  |
