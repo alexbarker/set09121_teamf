@@ -72,6 +72,22 @@ std::shared_ptr<Entity> AddEntity::makeFakePlayer2(Scene* scene, const Vector2f&
 	return makeFakePlayer2;
 }
 
+std::shared_ptr<Entity> AddEntity::makeTutorialPlayer(Scene* scene, const Vector2f& pos) {
+	auto player = scene->makeEntity();
+	player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
+	player->addTag("player");
+
+	auto animation = player->addComponent<AnimationComponent>(Vector2f(46.f, 46.f));
+	sf::Texture s = *Resources::load<Texture>("PlayerSpritesheet.png");
+	animation->setSpritesheet(s);
+	animation->setFrameCount(15);
+	animation->setFrameTime(0.06f);
+
+	player->addComponent<PlayerPhysicsComponent>(Vector2f(22.f, 17.f));
+
+	return player;
+}
+
 void AddEntity::makeWalls(Scene* scene) {
 	auto walls = ls::findTiles(ls::WALL);
 	for (auto w : walls) {

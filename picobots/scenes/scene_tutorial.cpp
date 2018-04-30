@@ -6,7 +6,8 @@
 #include <iostream>
 #include <thread>
 #include "../components/cmp_music.h"
-
+#include "../components/cmp_text.h"
+#include "../add_entity.h"
 
 using namespace std;
 using namespace sf;
@@ -17,12 +18,62 @@ void TutorialScene::Load() {
 	s2.stop();
 	s3.stop();
 	s1.playing();
+
+	float x2 = Engine::getWindowSize().x;
+	float y2 = Engine::getWindowSize().y;
+	Engine::GetWindow().setSize(sf::Vector2u(x2, y2));
+	Engine::GetWindow().display();
+
+	float temp = y2 / 44;
+
+	ls::loadLevelFile("res/tutoriallevel.txt", temp);
+	auto ho = Engine::getWindowSize().y - (ls::getHeight() * temp);
+	ls::setOffset(Vector2f(x2 / 4.72, ho));
+
+	{
+		auto txtTutorialTitle = makeEntity();
+		auto t = txtTutorialTitle->addComponent<TextComponent>("Tutorial");
+		t->getText().setCharacterSize(53);
+		t->getText().setOrigin(t->getText().getGlobalBounds().width / 2, t->getText().getGlobalBounds().height / 2);
+		txtTutorialTitle->setPosition(Vector2f(Engine::GetWindow().getSize().x / 2, 100.f));
+
+		auto txtTutorialBack = makeEntity();
+		auto t2 = txtTutorialBack->addComponent<TextComponent>("Press Esc to return to Title");
+		t2->getText().setCharacterSize(24);
+		t2->getText().setOrigin(t2->getText().getGlobalBounds().width / 2, t2->getText().getGlobalBounds().height / 2);
+		txtTutorialBack->setPosition(Vector2f(Engine::GetWindow().getSize().x / 2, (Engine::GetWindow().getSize().y - (Engine::GetWindow().getSize().y / 9))));
+
+		auto txtTutorialLeft = makeEntity();
+		auto t3 = txtTutorialLeft->addComponent<TextComponent>("Movement");
+		t3->getText().setCharacterSize(24);
+		t3->getText().setOrigin(t3->getText().getGlobalBounds().width / 2, t3->getText().getGlobalBounds().height / 2);
+		auto t4 = txtTutorialLeft->addComponent<TextComponent>("Press LEFT ARROW key to move left.");
+		t4->getText().setCharacterSize(14);
+		t4->getText().setOrigin(t4->getText().getGlobalBounds().width / 2, t4->getText().getGlobalBounds().height / 2 - 50);
+		auto t5 = txtTutorialLeft->addComponent<TextComponent>("Press RIGHT ARROW key to move right.");
+		t5->getText().setCharacterSize(14);
+		t5->getText().setOrigin(t5->getText().getGlobalBounds().width / 2, t5->getText().getGlobalBounds().height / 2 - 100);
+		txtTutorialLeft->setPosition(Vector2f(Engine::GetWindow().getSize().x / 9, (Engine::GetWindow().getSize().y / 9)));
+		auto t6 = txtTutorialLeft->addComponent<TextComponent>("Press DOWN ARROW key to move down.");
+		t6->getText().setCharacterSize(14);
+		t6->getText().setOrigin(t6->getText().getGlobalBounds().width / 2, t6->getText().getGlobalBounds().height / 2 - 150);
+		txtTutorialLeft->setPosition(Vector2f(Engine::GetWindow().getSize().x / 9, (Engine::GetWindow().getSize().y / 9)));
+		auto t7 = txtTutorialLeft->addComponent<TextComponent>("Press UP ARROW key to move up.");
+		t7->getText().setCharacterSize(14);
+		t7->getText().setOrigin(t7->getText().getGlobalBounds().width / 2, t7->getText().getGlobalBounds().height / 2 - 200);
+		txtTutorialLeft->setPosition(Vector2f(Engine::GetWindow().getSize().x / 9, (Engine::GetWindow().getSize().y / 9)));
+	}
+
+	player = AddEntity::makeTutorialPlayer(this, Vector2f(Engine::getWindowSize().x / 2, Engine::getWindowSize().y / 2));
+	AddEntity::makeWalls(this);
 }
 
 void TutorialScene::UnLoad() {
 	float x2 = Engine::GetWindow().getSize().x;
 	float y2 = Engine::GetWindow().getSize().y;
 	Engine::GetWindow().setView(sf::View(sf::FloatRect(0, 0, x2, y2)));
+	player.reset();
+	ls::unload();
 	Scene::UnLoad();
 }
 
@@ -48,5 +99,6 @@ void TutorialScene::Update(const double& dt) {
 }
 
 void TutorialScene::Render() {
+	ls::render(Engine::GetWindow());
 	Scene::Render();
 }
