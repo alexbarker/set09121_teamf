@@ -1,5 +1,13 @@
 #include "add_entity.h"
 #include "animation.h"
+#include "steering.h"
+#include "steering_states.h"
+#include "steering_decisions.h"
+#include "components/cmp_state_machine.h"
+#include "components/cmp_path_follow.h"
+#include "components/cmp_enemy_ai.h"
+#include "components/cmp_decision_tree.h"
+#include "components/cmp_ai_steering.h"
 #include "components/cmp_basic_movement.h"
 #include "components/cmp_actor_movement.h"
 #include "components/cmp_sprite.h"
@@ -14,7 +22,6 @@ using namespace std;
 
 std::shared_ptr<Entity> AddEntity::makePlayer(Scene* scene, const Vector2f& pos) {
 	auto player = scene->makeEntity();
-	//player->setPosition(pos);
 	player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
 	player->addTag("player");
 
@@ -75,3 +82,37 @@ void AddEntity::makeWalls(Scene* scene) {
 		e->addComponent<PhysicsComponent>(false, Vector2f(20.f, 20.f));
 	}
 }
+
+std::shared_ptr<Entity> AddEntity::makeSentinel(Scene* scene, const Vector2f& pos) {
+
+		auto makeSentinel = scene->makeEntity();
+		makeSentinel->setPosition(pos);
+		auto s = makeSentinel->addComponent<ShapeComponent>();
+		s->setShape<CircleShape>(10.0f);
+		s->getShape().setFillColor(Color::Blue);
+
+		auto x = scene->ents.find("player")[0];
+		auto sm = makeSentinel->addComponent<StateMachineComponent>();
+		//sm->addState("stationary", make_shared<StationaryState>());
+		sm->addState("seek", make_shared<SeekState>(makeSentinel, x));
+		//sm->addState("flee", make_shared<FleeState>(makeSentinel, x));
+
+		auto decision = make_shared<DistanceDecision>(
+			x,
+			50.0f,
+			make_shared<FleeDecision>(),
+			make_shared<DistanceDecision>(
+				x,
+				100.0f,
+				make_shared<RandomDecision>(
+					make_shared<SeekDecision>(),
+					make_shared<StationaryDecision>()),
+				make_shared<SeekDecision>()
+				)
+			);
+
+		makeSentinel->addComponent<DecisionTreeComponent>(decision);
+		//makeSentinel->addComponent<ActorMovementComponent>();
+
+		return makeSentinel;
+	}

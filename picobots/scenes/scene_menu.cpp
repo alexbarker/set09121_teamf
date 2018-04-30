@@ -142,6 +142,7 @@ void MenuScene::Update(const double& dt) {
 			break;
 		case 4:
 			Engine::ChangeScene(&settings);
+			std::this_thread::sleep_for(std::chrono::milliseconds(170));
 			break;
 		case 5:
 			Engine::GetWindow().close();

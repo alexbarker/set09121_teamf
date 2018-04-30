@@ -37,6 +37,7 @@ public:
   static sf::RenderWindow& GetWindow();
   static sf::Vector2u getWindowSize();
   static void setVsync(bool b);
+  static void setNewWindowSize(const sf::Vector2u& res, const int wantFullscreen);
 
 private:
   static Scene* _activeScene;

@@ -46,11 +46,13 @@ void Level1Scene::SetTitle() {
 }
 
 void Level1Scene::SetBackground() {
-	backgroungTexture1a = *Resources::load<Texture>("main1.png");
+	backgroungTexture1a = *Resources::load<Texture>("mainfullscreen.png");
 	float x = Engine::GetWindow().getSize().x;
 	float y = Engine::GetWindow().getSize().y;
+	//if(x2 > 1900){backgroungTexture1a = *Resources::load<Texture>("mainfullscreen.png");}
+	//else{backgroungTexture1a = *Resources::load<Texture>("main1.png");}
 	backgroundSize1a = backgroungTexture1a.getSize(); //Get size of texture.
-	windowSize1a = Engine::GetWindow().getSize();             //Get size of window.
+	windowSize1a = Engine::GetWindow().getSize();
 	float ScaleX = (float)windowSize1a.x / backgroundSize1a.x;
 	float ScaleY = (float)windowSize1a.y / backgroundSize1a.y;     //Calculate scale.
 	backgroundSprite1a.setTexture(backgroungTexture1a);
@@ -63,6 +65,9 @@ void Level1Scene::Load() {
 	s1.stop();
 	s3.stop();
 	s2.play2(1, true);
+
+	//for(auto ent : ents.list) {ent->setForDelete();}
+    //ents.list.clear();
 
 	float x2 = Engine::getWindowSize().x;
 	float y2 = Engine::getWindowSize().y;
@@ -78,8 +83,15 @@ void Level1Scene::Load() {
 	SetBackground();
 	SetTitle();
 
-	player = AddEntity::makePlayer(this, Vector2f(x2/2,y2/2));
+	player = AddEntity::makePlayer(this, Vector2f(x2 / 2, y2 / 2));
+	//AddEntity::makeSentinel(this, Vector2f(x2 / 2, y2 / 2));
 
+	auto sent = ls::findTiles(ls::ENEMY);
+	for (auto n : sent) {
+		auto pos = ls::getTilePosition(n);
+		pos += Vector2f(10.f, 10.f);
+		AddEntity::makeSentinel(this, pos);
+	}
 	AddEntity::makeWalls(this);
 }
 

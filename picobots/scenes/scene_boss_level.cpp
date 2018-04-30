@@ -46,7 +46,7 @@ void BossLevelScene::SetTitle() {
 }
 
 void BossLevelScene::SetBackground() {
-	backgroungTexture8a = *Resources::load<Texture>("main1.png");
+	backgroungTexture8a = *Resources::load<Texture>("mainfullscreen.png");
 	float x = Engine::GetWindow().getSize().x;
 	float y = Engine::GetWindow().getSize().y;
 	backgroundSize8a = backgroungTexture8a.getSize(); //Get size of texture.

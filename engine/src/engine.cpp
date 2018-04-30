@@ -17,6 +17,7 @@ static bool loading = false;
 static float loadingspinner = 0.f;
 static float loadingTime;
 static RenderWindow* _window;
+//Engine::wantFullscreen = false;
 
 void Loading_update(float dt, const Scene* const scn) {
   //  cout << "Eng: Loading Screen\n";
@@ -219,3 +220,21 @@ long long last() {
 } // namespace timing
 
 Scene::~Scene() { UnLoad(); }
+
+void Engine::setNewWindowSize(const sf::Vector2u &res, const int wantFullscreen) {
+	auto temp = wantFullscreen;
+	if (temp == 1) {
+		_window->create(VideoMode(1920, 1080), _gameName, sf::Style::Fullscreen);
+		_activeScene->UnLoad();
+		_activeScene->Load();
+		Engine::GetWindow().setFramerateLimit(60);
+	}
+	else if (temp == 2){
+		_window->create(VideoMode(res.x, res.y), _gameName,  sf::Style::Default);
+		_activeScene->UnLoad();
+		_activeScene->Load();
+		Engine::GetWindow().setFramerateLimit(60);
+	}
+	temp = 0;
+	
+}

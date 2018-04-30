@@ -46,7 +46,7 @@ void Level4Scene::SetTitle() {
 }
 
 void Level4Scene::SetBackground() {
-	backgroungTexture4a = *Resources::load<Texture>("main1.png");
+	backgroungTexture4a = *Resources::load<Texture>("mainfullscreen.png");
 	float x = Engine::GetWindow().getSize().x;
 	float y = Engine::GetWindow().getSize().y;
 	backgroundSize4a = backgroungTexture4a.getSize(); //Get size of texture.
