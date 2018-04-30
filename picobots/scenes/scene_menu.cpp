@@ -31,6 +31,11 @@ sf::IntRect roboSource2(0, 0, -400, 300);
 sf::Sprite roboarm2(roboarmTexture2, roboSource2);
 sf::Clock clock1;
 
+sf::SoundBuffer effect1;
+sf::Sound sound1;
+sf::SoundBuffer effect2;
+sf::Sound sound2;
+
 void MenuScene::SetTitle() {
 	titleTexture = *Resources::load<Texture>("title.png");
 	float x = Engine::GetWindow().getSize().x;
@@ -53,6 +58,11 @@ void MenuScene::Load() {
 		float x2 = Engine::getWindowSize().x;
 		float y2 = Engine::getWindowSize().y;
 		SetTitle();
+
+		effect1.loadFromFile("res/sound/shoot.ogg");
+		sound1.setBuffer(effect1);
+		effect2.loadFromFile("res/sound/menu.ogg");
+		sound2.setBuffer(effect2);
 
 		roboarm.setPosition(x2-400.0f, 200.0f);
 		roboarmTexture.loadFromFile("res/img/RoboarmSprite.png");
@@ -129,22 +139,28 @@ void MenuScene::Update(const double& dt) {
 		switch (GetPressedItem())
 		{
 		case 0:
+			sound2.play();
 			Engine::ChangeScene(&level1);
 			break;
 		case 1:
+			sound2.play();
 			Engine::ChangeScene(&load);
 			break;
 		case 2:
+			sound2.play();
 			Engine::ChangeScene(&highscores);
 			break;
 		case 3:
+			sound2.play();
 			Engine::ChangeScene(&tutorial);
 			break;
 		case 4:
+			sound2.play();
 			Engine::ChangeScene(&settings);
 			std::this_thread::sleep_for(std::chrono::milliseconds(170));
 			break;
 		case 5:
+			sound2.play();
 			Engine::GetWindow().close();
 			break;
 		}
@@ -205,6 +221,7 @@ void MenuScene::MoveUp()
 {
 	if (selectedItemIndex - 1 >= 0)
 	{
+		sound1.play();
 		menu[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex--;
 		menu[selectedItemIndex].setFillColor(sf::Color::Green);
@@ -212,9 +229,10 @@ void MenuScene::MoveUp()
 }
 
 void MenuScene::MoveDown()
-{
+{	
 	if (selectedItemIndex + 1 < MAX_NUMBER_OF_ITEMS)
 	{
+		sound1.play();
 		menu[selectedItemIndex].setFillColor(sf::Color::White);
 		selectedItemIndex++;
 		menu[selectedItemIndex].setFillColor(sf::Color::Green);

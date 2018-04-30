@@ -14,6 +14,11 @@
 using namespace std;
 using namespace sf;
 
+sf::SoundBuffer effect1a;
+sf::Sound sound1a;
+sf::SoundBuffer effect2a;
+sf::Sound sound2a;
+
 static shared_ptr<Entity> player;
 
 void SettingsScene::Load() {
@@ -21,6 +26,11 @@ void SettingsScene::Load() {
 	s2.stop();
 	s3.stop();
 	s1.playing();
+
+	effect1a.loadFromFile("res/sound/shoot.ogg");
+	sound1a.setBuffer(effect1a);
+	effect2a.loadFromFile("res/sound/menu.ogg");
+	sound2a.setBuffer(effect2a);
 
 	{
 		auto txtSettings = makeEntity();
@@ -105,22 +115,27 @@ void SettingsScene::Update(const double& dt) {
 		switch (GetPressedItem())
 		{
 		case 0:
+			sound2a.play();
 			Engine::setNewWindowSize(Vector2u(1504, 864), 2);
 			std::this_thread::sleep_for(std::chrono::milliseconds(170));
 			break;
 		case 1:
+			sound2a.play();
 			Engine::setNewWindowSize(Vector2u(1504, 864), 2);
 			std::this_thread::sleep_for(std::chrono::milliseconds(170));
 			break;
 		case 2:
+			sound2a.play();
 			Engine::setNewWindowSize(Vector2u(1920, 1080), 2);
 			std::this_thread::sleep_for(std::chrono::milliseconds(170));
 			break;
 		case 3:
+			sound2a.play();
 			Engine::setNewWindowSize(Vector2u(1920, 1080), 1);
 			std::this_thread::sleep_for(std::chrono::milliseconds(170));
 			break;
 		case 4:
+			sound2a.play();
 			Engine::ChangeScene(&menu);
 			std::this_thread::sleep_for(std::chrono::milliseconds(170));
 			break;
@@ -141,6 +156,7 @@ void SettingsScene::MoveUp()
 {
 	if (selectedItemIndex2 - 1 >= 0)
 	{
+		sound1a.play();
 		settingsMenu[selectedItemIndex2].setFillColor(sf::Color::White);
 		selectedItemIndex2--;
 		settingsMenu[selectedItemIndex2].setFillColor(sf::Color::Green);
@@ -151,6 +167,7 @@ void SettingsScene::MoveDown()
 {
 	if (selectedItemIndex2 + 1 < MAX_NUMBER_OF_Settings)
 	{
+		sound1a.play();
 		settingsMenu[selectedItemIndex2].setFillColor(sf::Color::White);
 		selectedItemIndex2++;
 		settingsMenu[selectedItemIndex2].setFillColor(sf::Color::Green);
