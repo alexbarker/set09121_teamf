@@ -16,6 +16,14 @@
 #include "scene_boss_level.h"
 #include "../add_entity.h"
 
+// SET09121 2017-8 TR2 001 - Games Engineering
+// Picobots
+// Version 0.7.0
+// Alexander Barker 
+// 40333139
+// Last Updated on 1st May 2018
+// scene_boss_level.cpp - This file is used to update and render the boss scene.
+
 using namespace std;
 using namespace sf;
 

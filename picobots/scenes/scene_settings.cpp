@@ -11,6 +11,14 @@
 #include "../components/cmp_music.h"
 #include "../components/cmp_text.h"
 
+// SET09121 2017-8 TR2 001 - Games Engineering
+// Picobots
+// Version 0.7.0
+// Alexander Barker 
+// 40333139
+// Last Updated on 1st May 2018
+// scene_settings.cpp - This file is used to call for loads, updates and renders for Settings.
+
 using namespace std;
 using namespace sf;
 
@@ -22,7 +30,7 @@ sf::Sound sound2a;
 static shared_ptr<Entity> player;
 
 void SettingsScene::Load() {
-	
+
 	s2.stop();
 	s3.stop();
 	s1.playing();

@@ -20,6 +20,14 @@
 #include <LevelSystem.h>
 #include <SFML/Graphics/Transformable.hpp>
 
+// SET09121 2017-8 TR2 001 - Games Engineering
+// Picobots
+// Version 0.7.0
+// Alexander Barker 
+// 40333139
+// Last Updated on 1st May 2018
+// add_entity.cpp - This file is used to create and expand entities.
+
 using namespace sf;
 using namespace std;
 
@@ -120,15 +128,11 @@ std::shared_ptr<Entity> AddEntity::makeEnergyCrystal(Scene* scene, const Vector2
 std::shared_ptr<Entity> AddEntity::makeEnemy1(Scene* scene, const Vector2f& pos) {
 	auto makeEnemy1 = scene->makeEntity();
 	makeEnemy1->setPosition(pos);
-	// *********************************
-	// Add HurtComponent
 	makeEnemy1->addComponent<HurtComponent>();
-	// Add ShapeComponent, Red 16.f Circle
 	auto s = makeEnemy1->addComponent<ShapeComponent>();
 	s->setShape<CircleShape>(10.f, 10.f);
 	s->getShape().setFillColor(Color::Red);
 	s->getShape().setOrigin(Vector2f(16.f, 16.f));
-	// Add EnemyAIComponent
 	makeEnemy1->addComponent<EnemyAIComponent>();
 	return makeEnemy1;
 }
@@ -165,36 +169,33 @@ std::shared_ptr<Entity> AddEntity::makeEnemy3(Scene* scene, const Vector2f& pos)
 
 std::shared_ptr<Entity> AddEntity::makeSentinel(Scene* scene, const Vector2f& pos) {
 
-		auto makeSentinel = scene->makeEntity();
-		makeSentinel->setPosition(pos);
-		makeSentinel->addTag("sentinel");
-		auto s = makeSentinel->addComponent<ShapeComponent>();
-		s->setShape<CircleShape>(10.0f);
-		s->getShape().setFillColor(Color::Blue);
-		makeSentinel->addComponent<HurtComponent>();
+	auto makeSentinel = scene->makeEntity();
+	makeSentinel->setPosition(pos);
+	makeSentinel->addTag("sentinel");
+	auto s = makeSentinel->addComponent<ShapeComponent>();
+	s->setShape<CircleShape>(10.0f);
+	s->getShape().setFillColor(Color::Blue);
+	makeSentinel->addComponent<HurtComponent>();
 
-		auto x = scene->ents.find("player")[0];
-		auto sm = makeSentinel->addComponent<StateMachineComponent>();
-		//sm->addState("stationary", make_shared<StationaryState>());
-		sm->addState("seek", make_shared<SeekState>(makeSentinel, x));
-		//sm->addState("flee", make_shared<FleeState>(makeSentinel, x));
+	auto x = scene->ents.find("player")[0];
+	auto sm = makeSentinel->addComponent<StateMachineComponent>();
+	sm->addState("seek", make_shared<SeekState>(makeSentinel, x));
 
-		auto decision = make_shared<DistanceDecision>(
+	auto decision = make_shared<DistanceDecision>(
+		x,
+		50.0f,
+		make_shared<FleeDecision>(),
+		make_shared<DistanceDecision>(
 			x,
-			50.0f,
-			make_shared<FleeDecision>(),
-			make_shared<DistanceDecision>(
-				x,
-				100.0f,
-				make_shared<RandomDecision>(
-					make_shared<SeekDecision>(),
-					make_shared<StationaryDecision>()),
-				make_shared<SeekDecision>()
-				)
-			);
+			100.0f,
+			make_shared<RandomDecision>(
+				make_shared<SeekDecision>(),
+				make_shared<StationaryDecision>()),
+			make_shared<SeekDecision>()
+			)
+		);
 
-		makeSentinel->addComponent<DecisionTreeComponent>(decision);
-		//makeSentinel->addComponent<ActorMovementComponent>();
+	makeSentinel->addComponent<DecisionTreeComponent>(decision);
 
-		return makeSentinel;
-	}
+	return makeSentinel;
+}

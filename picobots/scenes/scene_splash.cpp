@@ -12,6 +12,14 @@
 #include <system_resources.h>
 #include "LevelSystem.h"
 
+// SET09121 2017-8 TR2 001 - Games Engineering
+// Picobots
+// Version 0.7.0
+// Alexander Barker 
+// 40333139
+// Last Updated on 29th April 2018
+// scene_splash.cpp - This file is used to call for loads, updates and renders for Splash Screen.
+
 using namespace std;
 using namespace sf;
 MusicPlayer s1;
@@ -53,7 +61,7 @@ void SplashScene::SetBackground() {
 		now1 = clock.getElapsedTime();
 	}
 	clock.restart();
-	
+
 	s1.playing();
 	splashTexture2 = *Resources::load<Texture>("SplashScreen2.png");
 	float x2 = Engine::GetWindow().getSize().x;
@@ -77,7 +85,7 @@ void SplashScene::SetBackground() {
 	//std::this_thread::sleep_for(std::chrono::milliseconds(4000));
 }
 
-void SplashScene::Load(){	
+void SplashScene::Load() {
 	s1.play1(0, true);
 	SetBackground();
 	setLoaded(true);
@@ -85,19 +93,19 @@ void SplashScene::Load(){
 	Engine::ChangeScene(&menu);
 }
 
-void SplashScene::UnLoad() { 
+void SplashScene::UnLoad() {
 	float x2 = Engine::GetWindow().getSize().x;
 	float y2 = Engine::GetWindow().getSize().y;
 	Engine::GetWindow().setView(sf::View(sf::FloatRect(0, 0, x2, y2)));
-	Scene::UnLoad(); 
+	Scene::UnLoad();
 }
 
-void SplashScene::Update(const double& dt) { 
-	Scene::Update(dt); 
+void SplashScene::Update(const double& dt) {
+	Scene::Update(dt);
 }
 
-void SplashScene::Render() { 
+void SplashScene::Render() {
 	Renderer::queue(&splashSprite1);
 	Renderer::queue(&splashSprite2);
-	Scene::Render(); 
+	Scene::Render();
 }

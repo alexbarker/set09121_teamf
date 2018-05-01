@@ -16,6 +16,14 @@
 #include "scene_level7.h"
 #include "../add_entity.h"
 
+// SET09121 2017-8 TR2 001 - Games Engineering
+// Picobots
+// Version 0.7.0
+// Alexander Barker 
+// 40333139
+// Last Updated on 1st May 2018
+// scene_level7.cpp - This file is used to call for loads, updates and renders for Level 7.
+
 using namespace std;
 using namespace sf;
 

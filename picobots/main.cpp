@@ -3,6 +3,14 @@
 #include "scenes/scene_splash.h"
 #include <SFML/Audio.hpp>
 
+// SET09121 2017-8 TR2 001 - Games Engineering
+// Picobots
+// Version 0.7.0
+// Alexander Barker 
+// 40333139
+// Last Updated on 1st May 2018
+// main.cpp - This file is used to start the engine with predefined size and name.
+
 using namespace std;
 
 SplashScene splash;

@@ -13,6 +13,14 @@
 #include <SFML/Graphics.hpp>
 #include "../add_entity.h"
 
+// SET09121 2017-8 TR2 001 - Games Engineering
+// Picobots
+// Version 0.7.0
+// Alexander Barker 
+// 40333139
+// Last Updated on 1st May 2018
+// scene_menu.cpp - This file is used to call for loads, updates and renders for Main Menu.
+
 using namespace std;
 using namespace sf;
 
@@ -46,12 +54,12 @@ void MenuScene::SetTitle() {
 	float ScaleY = (float)windowSizeMenu.y / titleTextureSize.y;     //Calculate scale.
 	target = { x , y };
 	titleSprite.setTexture(titleTexture);
-	titleSprite.setPosition(windowSizeMenu.x/2, windowSizeMenu.y/3);
-	titleSprite.setOrigin(titleTextureSize.x/2, titleTextureSize.y/2);
+	titleSprite.setPosition(windowSizeMenu.x / 2, windowSizeMenu.y / 3);
+	titleSprite.setOrigin(titleTextureSize.x / 2, titleTextureSize.y / 2);
 }
 
 void MenuScene::Load() {
-  {
+	{
 		s2.stop();
 		s3.stop();
 		s1.playing();
@@ -64,7 +72,7 @@ void MenuScene::Load() {
 		effect2.loadFromFile("res/sound/menu.ogg");
 		sound2.setBuffer(effect2);
 
-		roboarm.setPosition(x2-400.0f, 200.0f);
+		roboarm.setPosition(x2 - 400.0f, 200.0f);
 		roboarmTexture.loadFromFile("res/img/RoboarmSprite.png");
 		roboarm2.setPosition(0, 200.0f);
 		roboarmTexture2.loadFromFile("res/img/RoboarmSprite.png");
@@ -74,7 +82,7 @@ void MenuScene::Load() {
 		menu[0].setFont(font);
 		menu[0].setFillColor(sf::Color::Green);
 		menu[0].setString("New Game");
-		menu[0].setPosition(sf::Vector2f((x2 / 2) - 80, (y2 / 2) + 40 ));
+		menu[0].setPosition(sf::Vector2f((x2 / 2) - 80, (y2 / 2) + 40));
 
 		menu[1].setFont(font);
 		menu[1].setFillColor(sf::Color::White);
@@ -103,23 +111,23 @@ void MenuScene::Load() {
 
 		selectedItemIndex = 0;
 
-	//std::this_thread::sleep_for(std::chrono::milliseconds(4000));
-  }
-  setLoaded(true);
+		//std::this_thread::sleep_for(std::chrono::milliseconds(4000));
+	}
+	setLoaded(true);
 }
 
-void MenuScene::Update(const double& dt) {	
+void MenuScene::Update(const double& dt) {
 	Scene::Update(dt);
 
 	Event event;
-		while (Engine::GetWindow().pollEvent(event)) {
-			if (event.type == sf::Event::Resized) {
-				UnLoad();
-				Engine::GetWindow().setSize(sf::Vector2u(event.size.width, event.size.height));
-				Engine::GetWindow().display();		
-				Load();
-			}
+	while (Engine::GetWindow().pollEvent(event)) {
+		if (event.type == sf::Event::Resized) {
+			UnLoad();
+			Engine::GetWindow().setSize(sf::Vector2u(event.size.width, event.size.height));
+			Engine::GetWindow().display();
+			Load();
 		}
+	}
 
 	if (sf::Keyboard::isKeyPressed(Keyboard::R)) {
 		fadeCounter = 0;
@@ -127,15 +135,15 @@ void MenuScene::Update(const double& dt) {
 		Load();
 	}
 
-	if (sf::Keyboard::isKeyPressed(Keyboard::Up)) { 
-		MoveUp(); 
+	if (sf::Keyboard::isKeyPressed(Keyboard::Up)) {
+		MoveUp();
 		std::this_thread::sleep_for(std::chrono::milliseconds(170));
 	}
-	else if (sf::Keyboard::isKeyPressed(Keyboard::Down)) { 
-		MoveDown(); 
+	else if (sf::Keyboard::isKeyPressed(Keyboard::Down)) {
+		MoveDown();
 		std::this_thread::sleep_for(std::chrono::milliseconds(170));
 	}
-	else if (sf::Keyboard::isKeyPressed(Keyboard::Enter)) { 
+	else if (sf::Keyboard::isKeyPressed(Keyboard::Enter)) {
 		switch (GetPressedItem())
 		{
 		case 0:
@@ -203,15 +211,15 @@ void MenuScene::Render() {
 		Renderer::queue(&roboarm);
 		Renderer::queue(&roboarm2);
 		Renderer::queue(&titleSprite);
-		for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++) 
+		for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
 		{
 			Renderer::queue(&menu[i]);
 		}
 	}
 }
 
-void MenuScene::UnLoad() { 
-    float x2 = Engine::GetWindow().getSize().x;
+void MenuScene::UnLoad() {
+	float x2 = Engine::GetWindow().getSize().x;
 	float y2 = Engine::GetWindow().getSize().y;
 	Engine::GetWindow().setView(sf::View(sf::FloatRect(0, 0, x2, y2)));
 	Scene::UnLoad();
@@ -229,7 +237,7 @@ void MenuScene::MoveUp()
 }
 
 void MenuScene::MoveDown()
-{	
+{
 	if (selectedItemIndex + 1 < MAX_NUMBER_OF_ITEMS)
 	{
 		sound1.play();

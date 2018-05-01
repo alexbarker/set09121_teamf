@@ -2,6 +2,14 @@
 #include "system_renderer.h"
 #include <cmath>
 
+// SET09121 2017-8 TR2 001 - Games Engineering
+// Picobots
+// Version 0.7.0
+// Alexander Barker 
+// 40333139
+// Last Updated on 27th April 2018
+// animation.cpp - This file is used to produce animations from spritesheets.
+
 using namespace sf;
 using namespace std;
 
@@ -63,7 +71,7 @@ void AnimationComponent::setSize(const Vector2f& size) {
 	auto origin = set_size / 2.f;
 	origin.x = floor(origin.x);
 	origin.y = floor(origin.y);
-	sprite.setOrigin(origin);	
+	sprite.setOrigin(origin);
 }
 
 const Vector2f& AnimationComponent::getSize() const {

@@ -17,6 +17,14 @@
 #include "../add_entity.h"
 #include "../components/cmp_text.h"
 
+// SET09121 2017-8 TR2 001 - Games Engineering
+// Picobots
+// Version 0.7.0
+// Alexander Barker 
+// 40333139
+// Last Updated on 1st May 2018
+// scene_level1.cpp - This file is used to call for loads, updates and renders for Level 1.
+
 using namespace std;
 using namespace sf;
 
@@ -28,8 +36,8 @@ sf::Vector2u backgroundSize1a;  //Added to store texture size.
 sf::Vector2u windowSize1a;   //Added to store window size.
 sf::Sprite titleSprite1b;
 sf::Texture titleTexture1b;
-sf::Vector2u titleSize1b;  
-sf::Vector2u windowSize1b;   
+sf::Vector2u titleSize1b;
+sf::Vector2u windowSize1b;
 int fadeCounter1 = 0;
 
 sf::SoundBuffer effect4;
@@ -71,7 +79,7 @@ void Level1Scene::Load() {
 	s2.play2(1, true);
 
 	//for(auto ent : ents.list) {ent->setForDelete();}
-    //ents.list.clear();
+	//ents.list.clear();
 
 	float x2 = Engine::getWindowSize().x;
 	float y2 = Engine::getWindowSize().y;
@@ -82,7 +90,7 @@ void Level1Scene::Load() {
 
 	ls::loadLevelFile("res/level1.txt", temp);
 	auto ho = Engine::getWindowSize().y - (ls::getHeight() * temp);
-	ls::setOffset(Vector2f(x2/4.72, ho));
+	ls::setOffset(Vector2f(x2 / 4.72, ho));
 
 	effect4.loadFromFile("res/sound/explosion.ogg");
 	sound4.setBuffer(effect4);
