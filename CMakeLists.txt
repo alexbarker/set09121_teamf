@@ -79,9 +79,6 @@ else()
           )
 endif()
 
-##Target to copy DLLs
-add_custom_target(copy_dlls ALL COMMAND ${CMAKE_COMMAND} -E copy_if_different "${PROJECT_SOURCE_DIR}/lib/openal32.dll" ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIGURATION>)
-
 #### Link Dependencies ####
 foreach (exe ${EXECUTABLES})
   #set working directory to build dir
@@ -126,30 +123,30 @@ set(CPACK_COMPONENTS_ALL ${CPACK_COMPONENTS_ALL} resources_cmpt libs_cmpt)
 #set(CPACK_INSTALL_CMAKE_PROJECTS ${CPACK_INSTALL_CMAKE_PROJECTS};${CMAKE_BINARY_DIR};${CMAKE_PROJECT_NAME};resources_cmpt;/)
 #set(CPACK_INSTALL_CMAKE_PROJECTS ${CPACK_INSTALL_CMAKE_PROJECTS};${CMAKE_BINARY_DIR};${CMAKE_PROJECT_NAME};libs_cmpt;/)
 
-#Install component for all labs, also tell CPack about them
+#Install component, also tell CPack about them
 foreach (exe ${EXECUTABLES})
   install(TARGETS ${exe} DESTINATION "bin" CONFIGURATIONS Release COMPONENT ${exe}_cmpt )
   #set(CPACK_INSTALL_CMAKE_PROJECTS ${CPACK_INSTALL_CMAKE_PROJECTS};${CMAKE_BINARY_DIR};${CMAKE_PROJECT_NAME};${exe}_cmpt;/)
   set(CPACK_COMPONENTS_ALL ${CPACK_COMPONENTS_ALL} ${exe}_cmpt)
   set(CPACK_COMPONENT_${exe}_CMPT_DEPENDS resources_cmpt libs_cmpt)
-  set(CPACK_COMPONENT_${exe}_CMPT_GROUP "Labs")
+  set(CPACK_COMPONENT_${exe}_CMPT_GROUP "Picobots")
 endforeach ()
 
 
 IF(WIN32)
   set(CPACK_GENERATOR NSIS)
   set(CPACK_NSIS_COMPONENT_INSTALL ON)
-  set(CPACK_NSIS_HELP_LINK "https://github.com/edinburgh-napier/set09121")
-  set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/edinburgh-napier/set09121")
-  set(CPACK_NSIS_CONTACT "https://github.com/edinburgh-napier")
+  set(CPACK_NSIS_HELP_LINK "https://alexbarker.github.io/set09121_teamf/")
+  set(CPACK_NSIS_URL_INFO_ABOUT "https://github.com/alexbarker/set09121_teamf/blob/master/README.md")
+  set(CPACK_NSIS_CONTACT "https://twitter.com/picobots_game")
 ELSE()
   set(CPACK_GENERATOR ZIP)
 ENDIF(WIN32)
 
 
 set(CPACK_PACKAGE_FILE_NAME ${CMAKE_PROJECT_NAME})
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "set09119")
-set(CPACK_PACKAGE_VENDOR "Edinburgh Napier University")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Picobots")
+set(CPACK_PACKAGE_VENDOR "Team F")
 find_file (LICENSE NAMES LICENSE LICENSE.txt PATHS  "${CMAKE_SOURCE_DIR}/../" "${CMAKE_SOURCE_DIR}" NO_DEFAULT_PATH)
 if(${LICENSE})
   set(CPACK_RESOURCE_FILE_LICENSE ${LICENSE})

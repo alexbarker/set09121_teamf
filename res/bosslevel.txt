@@ -34,12 +34,12 @@ wwww                                     wwww
 www                                       www
 wwww                                     wwww
 wwwww                                   wwwww
-wwww                                     wwww
-wwwwwwww                                  www
+wwww       2                             wwww
+wwwwwwwwwwwww                             www
 we                                       wwww
-we                    2         2       wwwww
-we     w    w    w    w    w    w    w   wwww
-wwwwwwwww  www  www  www  www  www  www wwwww
+we                    2    2    2    2  wwwww
+we          w    w    w    w    w    w   wwww
+wwwwwwwwwwwwww  www  www  www  www  www wwwww
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
