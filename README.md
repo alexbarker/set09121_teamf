@@ -59,6 +59,18 @@ Press Q to quit.
 
 [Twitter](https://twitter.com/picobots_game)
 
+# Install It
+
+After using the installer, you may require the following .dll files:
+
+```concrt140.dll```
+
+```msvcp140.dll```
+
+```openal32.dll```
+
+```vcruntime140.dll```
+
 # Build It
 
 Clone this repository.
