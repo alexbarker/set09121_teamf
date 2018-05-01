@@ -1,8 +1,21 @@
 version: 1.0.{build}
 image: Visual Studio 2017
-configuration: Debug
+configuration: Release
 before_build:
 - cmd: git submodule update --init --recursive & cmake -G "Visual Studio 15 2017 Win64"
 build:
   project: PACKAGE.vcxproj
   verbosity: minimal
+after_build:
+- cmd: 7z a picobots.zip %APPVEYOR_BUILD_FOLDER%/bin/%CONFIGURATION%/Picobots.exe %APPVEYOR_BUILD_FOLDER%/bin/%CONFIGURATION%/*.dll %APPVEYOR_BUILD_FOLDER%/bin/%CONFIGURATION%/res
+artifacts:
+- path: /*.zip
+  name: picobots_zip
+- path: installer/*.exe
+  name: picobots_installer
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: Mqo8fCDMKtaMq5AIUyrfbf19mF1hJ0cFJiBDt+JCinmmahfHdTqlXmpiMJL6RNBZ
+  artifact: picobots_zip, picobots_installer
+  prerelease: true
