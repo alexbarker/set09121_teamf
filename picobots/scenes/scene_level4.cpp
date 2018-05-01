@@ -31,6 +31,9 @@ sf::Vector2u titleSize4b;
 sf::Vector2u windowSize4b;
 int fadeCounter4 = 0;
 
+sf::SoundBuffer effect7;
+sf::Sound sound7;
+
 void Level4Scene::SetTitle() {
 	titleTexture4b = *Resources::load<Texture>("title.png");
 	float x1 = Engine::GetWindow().getSize().x;
@@ -73,12 +76,43 @@ void Level4Scene::Load() {
 	auto ho = Engine::getWindowSize().y - (ls::getHeight() * temp);
 	ls::setOffset(Vector2f(x2 / 4.72, ho));
 
+	effect7.loadFromFile("res/sound/explosion.ogg");
+	sound7.setBuffer(effect7);
+
 	SetBackground();
 	SetTitle();
 
 	player = AddEntity::makePlayer(this, Vector2f(x2 / 2, y2 / 2));
 
+	auto sent = ls::findTiles(ls::ENEMY);
+	for (auto n : sent) {
+		auto pos = ls::getTilePosition(n);
+		pos += Vector2f(10.f, 10.f);
+		AddEntity::makeSentinel(this, pos);
+	}
+
+	auto enemy1 = ls::findTiles(ls::ENEMY1);
+	for (auto n : enemy1) {
+		auto pos = ls::getTilePosition(n);
+		pos += Vector2f(10.f, 10.f);
+		AddEntity::makeEnemy1(this, (pos + Vector2f(0, 0)));
+	}
+
+	auto enemy2 = ls::findTiles(ls::ENEMY2);
+	for (auto n : enemy2) {
+		auto pos = ls::getTilePosition(n);
+		pos += Vector2f(10.f, 10.f);
+		AddEntity::makeEnemy2(this, pos);
+	}
+
 	AddEntity::makeWalls(this);
+
+	auto energyCrystals = ls::findTiles(ls::CRYSTAL);
+	for (auto nn : energyCrystals) {
+		auto pos = ls::getTilePosition(nn);
+		pos += Vector2f(10.f, 10.f);
+		AddEntity::makeEnergyCrystal(this, (pos + Vector2f(0, 10)));
+	}
 }
 
 void Level4Scene::UnLoad() {
@@ -95,6 +129,11 @@ void Level4Scene::Update(const double& dt) {
 	const auto pp = player->getPosition();
 	if (ls::getTileAt(pp) == ls::END) {
 		Engine::ChangeScene((Scene*)&level5);
+	}
+	else if (!player->isAlive()) {
+		sound7.play();
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		Engine::ChangeScene((Scene*)&level4);
 	}
 
 	Event event;

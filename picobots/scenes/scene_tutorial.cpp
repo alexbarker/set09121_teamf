@@ -62,6 +62,27 @@ void TutorialScene::Load() {
 		t7->getText().setCharacterSize(14);
 		t7->getText().setOrigin(t7->getText().getGlobalBounds().width / 2, t7->getText().getGlobalBounds().height / 2 - 200);
 		txtTutorialLeft->setPosition(Vector2f(Engine::GetWindow().getSize().x / 9, (Engine::GetWindow().getSize().y / 9)));
+
+		auto txtTutorialRight = makeEntity();
+		auto t8 = txtTutorialRight->addComponent<TextComponent>("Controls");
+		t8->getText().setCharacterSize(24);
+		t8->getText().setOrigin(t8->getText().getGlobalBounds().width / 2, t8->getText().getGlobalBounds().height / 2);
+		auto t9 = txtTutorialRight->addComponent<TextComponent>("Press R to restart.");
+		t9->getText().setCharacterSize(14);
+		t9->getText().setOrigin(t9->getText().getGlobalBounds().width / 2, t9->getText().getGlobalBounds().height / 2 - 50);
+		auto t10 = txtTutorialRight->addComponent<TextComponent>("Press F for fullscreen.");
+		t10->getText().setCharacterSize(14);
+		t10->getText().setOrigin(t10->getText().getGlobalBounds().width / 2, t10->getText().getGlobalBounds().height / 2 - 100);
+		auto t11 = txtTutorialRight->addComponent<TextComponent>("Press D to exit fullscreen.");
+		t11->getText().setCharacterSize(14);
+		t11->getText().setOrigin(t11->getText().getGlobalBounds().width / 2, t11->getText().getGlobalBounds().height / 2 - 150);
+		auto t12 = txtTutorialRight->addComponent<TextComponent>("Press ESC to return to title.");
+		t12->getText().setCharacterSize(14);
+		t12->getText().setOrigin(t12->getText().getGlobalBounds().width / 2, t12->getText().getGlobalBounds().height / 2 - 200);
+		auto t13 = txtTutorialRight->addComponent<TextComponent>("Press Q to quit.");
+		t13->getText().setCharacterSize(14);
+		t13->getText().setOrigin(t13->getText().getGlobalBounds().width / 2, t13->getText().getGlobalBounds().height / 2 - 250);
+		txtTutorialRight->setPosition(Vector2f(Engine::GetWindow().getSize().x - (Engine::GetWindow().getSize().x / 9), (Engine::GetWindow().getSize().y / 9)));
 	}
 
 	player = AddEntity::makeTutorialPlayer(this, Vector2f(Engine::getWindowSize().x / 2, Engine::getWindowSize().y / 2));

@@ -30,7 +30,7 @@ bool PlayerPhysicsComponent::isGrounded() const {
 }
 
 void PlayerPhysicsComponent::update(double dt) {
-
+	//bool isFiring = false;
 	const auto pos = _parent->getPosition();
 	setVelocity(Vector2f(0.f, 0.f));
 	/*
@@ -38,6 +38,11 @@ void PlayerPhysicsComponent::update(double dt) {
 	if (pos.y > ls::getHeight() * ls::getTileSize()) {
 		teleport(ls::getTilePosition(ls::findTiles(ls::START)[0]));
 	}*/
+	
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+	//	isFiring = true;
+	//}
+
 
 	if (Keyboard::isKeyPressed(Keyboard::Left) || Keyboard::isKeyPressed(Keyboard::Right) || Keyboard::isKeyPressed(Keyboard::Up) || Keyboard::isKeyPressed(Keyboard::Down)) {
 		// Moving Either Left or Right

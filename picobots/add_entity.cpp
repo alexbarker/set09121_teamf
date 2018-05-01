@@ -11,9 +11,12 @@
 #include "components/cmp_basic_movement.h"
 #include "components/cmp_actor_movement.h"
 #include "components/cmp_sprite.h"
+#include "components/cmp_hurt_player.h"
 #include "system_resources.h"
 #include "components/cmp_physics.h"
 #include "components/cmp_player_physics.h"
+#include "components/cmp_enemy_turret.h"
+#include "components/cmp_bullet.h"
 #include <LevelSystem.h>
 #include <SFML/Graphics/Transformable.hpp>
 
@@ -99,13 +102,76 @@ void AddEntity::makeWalls(Scene* scene) {
 	}
 }
 
+std::shared_ptr<Entity> AddEntity::makeEnergyCrystal(Scene* scene, const Vector2f& pos) {
+	auto makeEnergyCrystal = scene->makeEntity();
+	makeEnergyCrystal->setPosition(pos);
+	makeEnergyCrystal->addTag("crystal");
+	//makeEnergyCrystal->addComponent<PhysicsComponent>(false, Vector2f(20.f, 20.f));
+
+	auto animation = makeEnergyCrystal->addComponent<AnimationComponent>(Vector2f(30.f, 30.f));
+	sf::Texture s = *Resources::load<Texture>("crystal.png");
+	animation->setSpritesheet(s);
+	animation->setFrameCount(1);
+	animation->setFrameTime(0.06f);
+
+	return makeEnergyCrystal;
+}
+
+std::shared_ptr<Entity> AddEntity::makeEnemy1(Scene* scene, const Vector2f& pos) {
+	auto makeEnemy1 = scene->makeEntity();
+	makeEnemy1->setPosition(pos);
+	// *********************************
+	// Add HurtComponent
+	makeEnemy1->addComponent<HurtComponent>();
+	// Add ShapeComponent, Red 16.f Circle
+	auto s = makeEnemy1->addComponent<ShapeComponent>();
+	s->setShape<CircleShape>(10.f, 10.f);
+	s->getShape().setFillColor(Color::Red);
+	s->getShape().setOrigin(Vector2f(16.f, 16.f));
+	// Add EnemyAIComponent
+	makeEnemy1->addComponent<EnemyAIComponent>();
+	return makeEnemy1;
+}
+
+std::shared_ptr<Entity> AddEntity::makeEnemy2(Scene* scene, const Vector2f& pos) {
+	auto makeEnemy2 = scene->makeEntity();
+	makeEnemy2->setPosition(pos);
+	auto s = makeEnemy2->addComponent<ShapeComponent>();
+	s->setShape<sf::CircleShape>(16.f, 3);
+	s->getShape().setFillColor(Color::Red);
+	s->getShape().setOrigin(16.f, 16.f);
+	makeEnemy2->addComponent<EnemyTurretComponent>();
+
+	return makeEnemy2;
+}
+std::shared_ptr<Entity> AddEntity::makeEnemy3(Scene* scene, const Vector2f& pos) {
+	auto makeEnemy3 = scene->makeEntity();
+	makeEnemy3->setPosition(pos);
+	makeEnemy3->addComponent<BulletComponent>(120.f);
+	makeEnemy3->addComponent<HurtComponent>();
+	auto s = makeEnemy3->addComponent<ShapeComponent>();
+	s->setShape<sf::CircleShape>(50.f);
+	s->getShape().setFillColor(Color::Black);
+	s->getShape().setOrigin(40.f, 40.f);
+	auto p = makeEnemy3->addComponent<PhysicsComponent>(true, Vector2f(100.f, 100.f));
+	p->setRestitution(.4f);
+	p->setFriction(.0f);
+	p->impulse(Vector2f(0.f, 0));
+	p->setMass(0.f);
+	p->setGravityScale(0);
+
+	return makeEnemy3;
+}
+
 std::shared_ptr<Entity> AddEntity::makeSentinel(Scene* scene, const Vector2f& pos) {
 
 		auto makeSentinel = scene->makeEntity();
 		makeSentinel->setPosition(pos);
+		makeSentinel->addTag("sentinel");
 		auto s = makeSentinel->addComponent<ShapeComponent>();
 		s->setShape<CircleShape>(10.0f);
 		s->getShape().setFillColor(Color::Blue);
+		makeSentinel->addComponent<HurtComponent>();
 
 		auto x = scene->ents.find("player")[0];
 		auto sm = makeSentinel->addComponent<StateMachineComponent>();

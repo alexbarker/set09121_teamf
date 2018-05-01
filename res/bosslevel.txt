@@ -3,17 +3,17 @@ wwwwwwwwwwwwwwwwwwwwwwgggwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwwwwwww   wwwwwwwwwwwwwwwwwwww
 wwwwww  www  www  www     www  www  www wwwww
 wwwww    w    w    w       w    w    w   wwww
-www                                       www
+www      2                           2    www
+wwww                                     wwww
+wwwww                                   wwwww
+wwww                                     wwww
+www       3                               www
 wwww                                     wwww
 wwwww                                   wwwww
 wwww                                     wwww
 www                                       www
-wwww                                     wwww
-wwwww                                   wwwww
-wwww                                     wwww
-www                                       www
-wwww                                     wwww
-wwwww                                   wwwww
+wwww                           3         wwww
+wwwww      3                            wwwww
 wwww                                     wwww
 www                                       www
 wwww                                     wwww
@@ -21,7 +21,7 @@ wwwww                                   wwwww
 wwww                                     wwww
 www                                       www
 wwww                                        w
-wwwww                                     s w
+wwwww2                                    s w
 wwww                                        w
 www                                       www
 wwww                                     wwww
@@ -35,9 +35,9 @@ www                                       www
 wwww                                     wwww
 wwwww                                   wwwww
 wwww                                     wwww
-www                                       www
+wwwwwwww                                  www
 we                                       wwww
-we                                      wwwww
+we                    2         2       wwwww
 we     w    w    w    w    w    w    w   wwww
 wwwwwwwww  www  www  www  www  www  www wwwww
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww

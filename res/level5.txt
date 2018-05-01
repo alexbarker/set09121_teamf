@@ -1,11 +1,12 @@
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwwwwweeewwwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwwwww   wwwwwwwwwwwwwwwwwwwwww
-www                                       www
-www                                       www
+www  n               n                 n  www
+www                  1                    www
 www  wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww  www
 www  wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww  www
 www                                       www
+www  1               1                 1  www
 www                                       www
 www                                       www
 www                                       www
@@ -15,12 +16,11 @@ www                                       www
 www                                       www
 www                                       www
 www                                       www
+www                   c                   www
 www                                       www
 www                                       www
 www                                       www
-www                                       www
-www                                       www
-www                                       www
+www                   2                   www
 www                   w                   www
 www                  www                  www
 www                 wwwww                 www
@@ -29,10 +29,10 @@ www                   w                   www
 www                  www                  www
 www                 wwwww                 www
 www                  www                  www
-www                   w                   www
-www                                       www
+www  c                w                c  www
+www                   2                   www
 wwwwwwwwwwww                     wwwwwwwwwwww
-wwwwwwwwwwwww                   wwwwwwwwwwwww
+wwwwwwwwwwwww         1         wwwwwwwwwwwww
 wwwwwwwwwwwwww                 wwwwwwwwwwwwww
 wwwwwwwwwwwwwww               wwwwwwwwwwwwwww
 wwwwwwwwwwwwwwww             wwwwwwwwwwwwwwww

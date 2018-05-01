@@ -19,10 +19,14 @@ public:
   enum TILES {
     EMPTY = ' ',
     START = 's',
+	CRYSTAL = 'c',
     END = 'e',
 	ENDGAME = 'g',
     WALL = 'w',
     ENEMY = 'n',
+	ENEMY1 = '1',
+	ENEMY2 = '2',
+	ENEMY3 = '3',
     WAYPOINT = '+'
   };
 

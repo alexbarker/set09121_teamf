@@ -2,16 +2,16 @@ wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 wwww w w w w w w w w w w w w w w w w w w wwww
-www                                       www
-www                                       www
-www                           wwwwwwwwwwwwwww
-www       wwww                wwwwwwwwwwwwwww
+www     n        n        n               www
+www                                   c   www
+www         c                 wwwwwwwwwwwwwww
+www       wwww      1         wwwwwwwwwwwwwww
 www      wwwwww                           www
-www       wwww                            www
+www       wwww                        c   www
 www                           wwwwwwwwwwwwwww
-www                           wwwwwwwwwwwwwww
+www                  1        wwwwwwwwwwwwwww
 www                                       www
-www                                       www
+www                         c             www
 www                       wwww            www
 www                      wwwwww           www
 www                       wwww            www
@@ -24,17 +24,17 @@ we                                        www
 www                                       www
 www                                       www
 www                                       www
-www                                       www
+www                       2               www
 www                       w               www
-www                      www              www
+www        1             www     1        www
 www                       w               www
 www                 w                     www
-www                www                    www
+www      1          www      1            www
 www                 w                     www
-www           w                           www
-www          www                          www
-www           w                           www
-www     w                                 www
+www           w     2                     www
+www     1     www                  1      www
+www     2     w                           www
+www     w     2                           www
 www    www                                www
 www     w                                 www
 www                                       www

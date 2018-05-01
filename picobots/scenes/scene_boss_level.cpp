@@ -31,6 +31,9 @@ sf::Vector2u titleSize8b;
 sf::Vector2u windowSize8b;
 int fadeCounter8 = 0;
 
+sf::SoundBuffer effect11;
+sf::Sound sound11;
+
 void BossLevelScene::SetTitle() {
 	titleTexture8b = *Resources::load<Texture>("title.png");
 	float x1 = Engine::GetWindow().getSize().x;
@@ -73,10 +76,27 @@ void BossLevelScene::Load() {
 	auto ho = Engine::getWindowSize().y - (ls::getHeight() * temp);
 	ls::setOffset(Vector2f(x2 / 4.72, ho));
 
+	effect11.loadFromFile("res/sound/explosion.ogg");
+	sound11.setBuffer(effect11);
+
 	SetBackground();
 	SetTitle();
 
 	player = AddEntity::makePlayer(this, Vector2f(x2 / 2, y2 / 2));
+
+	auto enemy2 = ls::findTiles(ls::ENEMY2);
+	for (auto n : enemy2) {
+		auto pos = ls::getTilePosition(n);
+		pos += Vector2f(10.f, 10.f);
+		AddEntity::makeEnemy2(this, pos);
+	}
+
+	auto enemy3 = ls::findTiles(ls::ENEMY3);
+	for (auto n : enemy3) {
+		auto pos = ls::getTilePosition(n);
+		pos += Vector2f(10.f, 10.f);
+		AddEntity::makeEnemy3(this, pos);
+	}
 
 	AddEntity::makeWalls(this);
 }
@@ -99,6 +119,11 @@ void BossLevelScene::Update(const double& dt) {
 	else if (ls::getTileAt(pp) == ls::ENDGAME) {
 		s1.play1(0, true);
 		Engine::ChangeScene((Scene*)&menu);
+	}
+	else if (!player->isAlive()) {
+		sound11.play();
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		Engine::ChangeScene((Scene*)&bosslevel);
 	}
 
 	Event event;

@@ -79,6 +79,9 @@ else()
           )
 endif()
 
+##Target to copy DLLs
+add_custom_target(copy_dlls ALL COMMAND ${CMAKE_COMMAND} -E copy_if_different "${PROJECT_SOURCE_DIR}/lib/openal32.dll" ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIGURATION>)
+
 #### Link Dependencies ####
 foreach (exe ${EXECUTABLES})
   #set working directory to build dir

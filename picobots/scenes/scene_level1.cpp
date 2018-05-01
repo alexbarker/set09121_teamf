@@ -15,6 +15,7 @@
 #include "system_renderer.h"
 #include "scene_level1.h"
 #include "../add_entity.h"
+#include "../components/cmp_text.h"
 
 using namespace std;
 using namespace sf;
@@ -30,6 +31,9 @@ sf::Texture titleTexture1b;
 sf::Vector2u titleSize1b;  
 sf::Vector2u windowSize1b;   
 int fadeCounter1 = 0;
+
+sf::SoundBuffer effect4;
+sf::Sound sound4;
 
 void Level1Scene::SetTitle() {
 	titleTexture1b = *Resources::load<Texture>("title.png");
@@ -80,11 +84,13 @@ void Level1Scene::Load() {
 	auto ho = Engine::getWindowSize().y - (ls::getHeight() * temp);
 	ls::setOffset(Vector2f(x2/4.72, ho));
 
+	effect4.loadFromFile("res/sound/explosion.ogg");
+	sound4.setBuffer(effect4);
+
 	SetBackground();
 	SetTitle();
 
 	player = AddEntity::makePlayer(this, Vector2f(x2 / 2, y2 / 2));
-	//AddEntity::makeSentinel(this, Vector2f(x2 / 2, y2 / 2));
 
 	auto sent = ls::findTiles(ls::ENEMY);
 	for (auto n : sent) {
@@ -92,7 +98,29 @@ void Level1Scene::Load() {
 		pos += Vector2f(10.f, 10.f);
 		AddEntity::makeSentinel(this, pos);
 	}
+
+	auto enemy1 = ls::findTiles(ls::ENEMY1);
+	for (auto n : enemy1) {
+		auto pos = ls::getTilePosition(n);
+		pos += Vector2f(10.f, 10.f);
+		AddEntity::makeEnemy1(this, (pos + Vector2f(0, 20)));
+	}
+
+	auto enemy2 = ls::findTiles(ls::ENEMY2);
+	for (auto n : enemy2) {
+		auto pos = ls::getTilePosition(n);
+		pos += Vector2f(10.f, 10.f);
+		AddEntity::makeEnemy2(this, pos);
+	}
+
 	AddEntity::makeWalls(this);
+
+	auto energyCrystals = ls::findTiles(ls::CRYSTAL);
+	for (auto nn : energyCrystals) {
+		auto pos = ls::getTilePosition(nn);
+		pos += Vector2f(10.f, 10.f);
+		AddEntity::makeEnergyCrystal(this, pos);
+	}
 }
 
 void Level1Scene::UnLoad() {
@@ -109,6 +137,11 @@ void Level1Scene::Update(const double& dt) {
 	const auto pp = player->getPosition();
 	if (ls::getTileAt(pp) == ls::END) {
 		Engine::ChangeScene((Scene*)&level2);
+	}
+	else if (!player->isAlive()) {
+		sound4.play();
+		std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		Engine::ChangeScene((Scene*)&level1);
 	}
 
 	Event event;

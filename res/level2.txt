@@ -1,8 +1,8 @@
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwwwww   wwwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwwwww s wwwwwwwwwwwwwwwwwwwwww
-wwwwwww       www      ww                 www
-wwwwww         w       ww                 www
+wwwwwww   2   www      ww                 www
+wwwwww         w       ww c          1    www
 wwwww                 wwwwwwwww    wwwwwwwwww
 wwww                 wwwwwwwwww    wwwwwwwwww
 www        www      wwwwwwwwwww    wwwwwwwwww
@@ -14,13 +14,13 @@ www                   www                 www
 www                    www                www
 www                     www               www
 www                      www              www
-www                        wwww           www
-www                         wwwwwwww      www
+www                        wwww        n  www
+www     1                   wwwwwwww      www
 www                          wwwwwww     wwww
-www                           wwww      wwwww
+www            1              wwww      wwwww
 www                            www     wwwwww
-www                            www    wwwwwww
-www                            www         ew
+www                   1        www    wwwwwww
+www   n                        www         ew
 www                           www          ew
 www                          www           ew
 wwww                        www       wwwwwww
@@ -37,9 +37,9 @@ wwww        w        wwwwwwwwwwwwwwwww    www
 www        www       wwwwwwwwwww          www
 www       wwwwwww        wwwwwww          www
 www      ww               wwwwww  wwwwwwwwwww
-www     wwww              wwwwww  wwwwwwwwwww
+www  c  wwww        n     wwwwww  wwwwwwwwwww
 www   wwwwwww                     wwwwwwwwwww
-www  wwwwwwwww                    wwwwwwwwwww
+www  wwwwwwwww                 c  wwwwwwwwwww
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
